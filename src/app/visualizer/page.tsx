@@ -7,6 +7,7 @@ import SortingVisualizer from "@/components/sorting/SortingVisualizer";
 import PathfindingVisualizer from "@/components/pathfinding/PathfindingVisualizer";
 import SearchingVisualizer from "@/components/searching/SearchingVisualizer";
 import { AlgorithmCategory } from "@/types";
+import TreeVisualizer from "@/components/tree/TreeVisualizer";
 
 export default function VisualizerPage() {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("bubbleSort");
@@ -18,7 +19,7 @@ export default function VisualizerPage() {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden" style={{ background: "#080810" }}>
+    <div className="flex h-screen overflow-hidden" style={{ background: "var(--bg-primary)" }}>
       <Sidebar selectedAlgorithm={selectedAlgorithm} onSelect={handleSelect} />
 
       <main className="flex-1 overflow-hidden relative">
@@ -34,6 +35,7 @@ export default function VisualizerPage() {
             {category === "sorting"     && <SortingVisualizer     algorithmId={selectedAlgorithm} />}
             {category === "pathfinding" && <PathfindingVisualizer algorithmId={selectedAlgorithm} />}
             {category === "searching"   && <SearchingVisualizer   algorithmId={selectedAlgorithm} />}
+            {category === "tree"        && <TreeVisualizer        algorithmId={selectedAlgorithm} />}
           </motion.div>
         </AnimatePresence>
       </main>

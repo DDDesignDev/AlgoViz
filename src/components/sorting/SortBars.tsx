@@ -22,7 +22,7 @@ function barStyle(state: string): React.CSSProperties {
     case "selected":
       return { background: "#A78BFA", boxShadow: "0 0 18px rgba(167,139,250,0.45)" };
     default:
-      return { background: "rgba(255,255,255,0.08)", boxShadow: "none" };
+      return { background: "var(--border-default)", boxShadow: "none" };
   }
 }
 
@@ -48,7 +48,8 @@ export default function SortBars({ bars }: SortBarsProps) {
           >
             <motion.div
               className="w-full rounded-t-[2px]"
-              animate={{ height: `${heightPct}%`, ...style }}
+              style={style}
+              animate={{ height: `${heightPct}%` }}
               transition={{ type: "spring", stiffness: 350, damping: 30 }}
             />
             {showLabels && (

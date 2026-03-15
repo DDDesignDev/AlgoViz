@@ -45,7 +45,7 @@ export default function AlgorithmInfoPanel({ algorithmId, currentStep }: Algorit
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="rounded-xl p-3.5"
-            style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}
+            style={{ background: "var(--surface-1)", border: "1px solid var(--surface-4)" }}
           >
             <p className="text-[11px] font-mono text-text-muted">
               Press <span className="text-text-secondary">Run</span> or{" "}
@@ -72,7 +72,7 @@ export default function AlgorithmInfoPanel({ algorithmId, currentStep }: Algorit
 
       {/* ── Complexity table ──────────────────────────────────────── */}
       <Section icon={Clock} label="Complexity">
-        <div style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+        <div style={{ borderTop: "1px solid var(--surface-4)" }}>
           {[
             { key: "Best case",    val: info.timeComplexity.best,    color: "#34D399" },
             { key: "Average",      val: info.timeComplexity.average, color: "#FBBF24" },
@@ -81,13 +81,13 @@ export default function AlgorithmInfoPanel({ algorithmId, currentStep }: Algorit
             <div
               key={row.key}
               className={ROW}
-              style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}
+              style={{ borderBottom: "1px solid var(--surface-3)" }}
             >
               <span className={LABEL}>{row.key}</span>
               <span className={VALUE} style={{ color: row.color }}>{row.val}</span>
             </div>
           ))}
-          <div className={ROW} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+          <div className={ROW} style={{ borderBottom: "1px solid var(--surface-3)" }}>
             <span className={LABEL + " flex items-center gap-1"}>
               <HardDrive className="w-3 h-3" /> Space
             </span>
@@ -134,7 +134,7 @@ function Section({
   return (
     <div
       className="rounded-xl p-4"
-      style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}
+      style={{ background: "var(--surface-1)", border: "1px solid var(--surface-4)" }}
     >
       {label && (
         <div className="flex items-center gap-1.5 mb-3">

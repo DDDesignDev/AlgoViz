@@ -117,7 +117,7 @@ export default function SearchingVisualizer({ algorithmId }: { algorithmId: stri
         {/* ── Header ── */}
         <div
           className="flex items-center justify-between px-6 h-12 shrink-0"
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", background: "#0D0D18" }}
+          style={{ borderBottom: "1px solid var(--surface-4)", background: "var(--bg-secondary)" }}
         >
           <div className="flex items-center gap-3">
             <h1 className="font-display font-bold text-text-primary text-sm tracking-tight">{info.name}</h1>
@@ -161,7 +161,7 @@ export default function SearchingVisualizer({ algorithmId }: { algorithmId: stri
                   {stepIndex + 1} / {steps.length}
                 </span>
               )}
-              <div className="w-24 h-0.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
+              <div className="w-24 h-0.5 rounded-full overflow-hidden" style={{ background: "var(--surface-5)" }}>
                 <motion.div className="h-full rounded-full" style={{ background: "#34D399" }}
                   animate={{ width: `${progress}%` }} transition={{ duration: 0.08 }} />
               </div>
@@ -172,7 +172,7 @@ export default function SearchingVisualizer({ algorithmId }: { algorithmId: stri
         {/* ── Toolbar ── */}
         <div
           className="flex items-center gap-3 px-6 h-11 shrink-0 flex-wrap"
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.04)", background: "#080810" }}
+          style={{ borderBottom: "1px solid var(--surface-3)", background: "var(--bg-primary)" }}
         >
           <ControlBar
             playState={playState} speed={speed}
@@ -191,11 +191,11 @@ export default function SearchingVisualizer({ algorithmId }: { algorithmId: stri
                 disabled={playState === "playing"}
                 className="w-20 h-7 px-2.5 rounded-lg text-xs font-mono text-text-primary placeholder:text-text-muted outline-none disabled:opacity-40"
                 style={{
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: "var(--surface-3)",
+                  border: "1px solid var(--border-default)",
                 }}
                 onFocus={(e) => e.target.style.borderColor = "rgba(52,211,153,0.4)"}
-                onBlur={(e) => e.target.style.borderColor = "rgba(255,255,255,0.08)"}
+                onBlur={(e) => e.target.style.borderColor = "var(--border-default)"}
               />
             </div>
 
@@ -220,7 +220,7 @@ export default function SearchingVisualizer({ algorithmId }: { algorithmId: stri
               onClick={handleGenerate}
               disabled={playState === "playing"}
               className="inline-flex items-center gap-1.5 h-7 px-2.5 rounded-lg text-xs text-text-secondary hover:text-text-primary transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+              style={{ background: "var(--surface-3)", border: "1px solid var(--border-default)" }}
             >
               <Shuffle className="w-3 h-3" /> New
             </button>
@@ -230,13 +230,13 @@ export default function SearchingVisualizer({ algorithmId }: { algorithmId: stri
         {/* ── Legend ── */}
         <div
           className="flex items-center gap-5 px-6 h-8 shrink-0"
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.04)", background: "#080810" }}
+          style={{ borderBottom: "1px solid var(--surface-3)", background: "var(--bg-primary)" }}
         >
           {[
-            { color: "rgba(255,255,255,0.08)", border: "rgba(255,255,255,0.08)", label: "Default" },
+            { color: "var(--border-default)", border: "var(--border-default)", label: "Default" },
             { color: "#22D3EE",                label: "Checking" },
             { color: "#34D399",                label: "Found" },
-            { color: "rgba(255,255,255,0.03)", border: "rgba(255,255,255,0.04)", label: "Eliminated" },
+            { color: "var(--surface-2)", border: "var(--surface-3)", label: "Eliminated" },
             { color: "rgba(167,139,250,0.2)",  label: "In range" },
           ].map((item) => (
             <div key={item.label} className="flex items-center gap-1.5">
@@ -250,7 +250,7 @@ export default function SearchingVisualizer({ algorithmId }: { algorithmId: stri
         </div>
 
         {/* ── Visualization ── */}
-        <div className="flex-1 overflow-hidden flex items-center justify-center px-8 py-10" style={{ background: "#080810" }}>
+        <div className="flex-1 overflow-hidden flex items-center justify-center px-8 py-10" style={{ background: "var(--bg-primary)" }}>
           <SearchBars bars={bars} currentStep={currentStep} />
         </div>
       </div>
@@ -258,7 +258,7 @@ export default function SearchingVisualizer({ algorithmId }: { algorithmId: stri
       {/* Info panel */}
       <aside
         className="w-64 overflow-y-auto shrink-0 p-4"
-        style={{ borderLeft: "1px solid rgba(255,255,255,0.05)", background: "#0D0D18" }}
+        style={{ borderLeft: "1px solid var(--surface-4)", background: "var(--bg-secondary)" }}
       >
         <AlgorithmInfoPanel algorithmId={algorithmId} currentStep={currentStep?.description} />
       </aside>

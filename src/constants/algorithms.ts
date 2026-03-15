@@ -188,11 +188,55 @@ export const ALGORITHM_INFO: Record<string, AlgorithmInfo> = {
       "Finding insertion points",
     ],
   },
+
+  // ── Binary Tree ───────────────────────────────────────────────────────────
+  bstInsert: {
+    id: "bstInsert",
+    name: "BST Insert",
+    category: "tree",
+    timeComplexity: { best: "O(log n)", average: "O(log n)", worst: "O(n)" },
+    spaceComplexity: "O(n)",
+    description:
+      "Inserts a value into a Binary Search Tree by comparing at each node and going left if smaller, right if larger, until an empty slot is found. The worst case is O(n) when the tree degenerates into a linked list (sorted input).",
+    useCases: ["Dynamic sorted data", "Symbol tables", "Database indexing"],
+  },
+  bstSearch: {
+    id: "bstSearch",
+    name: "BST Search",
+    category: "tree",
+    timeComplexity: { best: "O(1)", average: "O(log n)", worst: "O(n)" },
+    spaceComplexity: "O(1)",
+    description:
+      "Searches a BST by comparing the target at each node — go left if smaller, right if larger. Returns found or not found. Efficient on balanced trees; degrades on skewed ones.",
+    useCases: ["Lookup in sorted structures", "Auto-complete", "Range queries"],
+  },
+  bfsBST: {
+    id: "bfsBST",
+    name: "BFS Traversal",
+    category: "tree",
+    timeComplexity: { best: "O(n)", average: "O(n)", worst: "O(n)" },
+    spaceComplexity: "O(n)",
+    description:
+      "Level-order traversal visits every node level by level using a queue. It processes all nodes at depth 0 before depth 1, and so on — useful for finding the shortest path in unweighted trees.",
+    useCases: ["Level-order processing", "Shortest path in trees", "Serialization"],
+  },
+  dfsBST: {
+    id: "dfsBST",
+    name: "DFS Traversal",
+    category: "tree",
+    timeComplexity: { best: "O(n)", average: "O(n)", worst: "O(n)" },
+    spaceComplexity: "O(h)",
+    description:
+      "Depth-first traversal explores as deep as possible before backtracking. Pre-order visits root first, in-order visits left → root → right (producing sorted output for BSTs), and post-order visits children before parent.",
+    useCases: ["Expression trees", "Producing sorted output (in-order)", "File system traversal"],
+  },
+
 };
 
 export const SORTING_ALGORITHMS = ["bubbleSort", "selectionSort", "insertionSort", "mergeSort", "quickSort", "heapSort"];
 export const PATHFINDING_ALGORITHMS = ["bfs", "dfs", "dijkstra", "aStar"];
 export const SEARCHING_ALGORITHMS = ["linearSearch", "binarySearch"];
+export const TREE_ALGORITHMS = ["bstInsert", "bstSearch", "bfsBST", "dfsBST"];
 
 export const CATEGORY_LABELS: Record<string, string> = {
   sorting: "Sorting",

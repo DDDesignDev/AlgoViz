@@ -5,6 +5,7 @@ import Link from "next/link";
 import {
   ArrowRight, BarChart3, Network, Search,
   Code2, Layers, GitBranch, Cpu, Zap,
+  NetworkIcon,
 } from "lucide-react";
 
 const FEATURES = [
@@ -15,7 +16,7 @@ const FEATURES = [
     desc: "Animate comparisons, swaps, and pivots across five classic algorithms.",
     accent: "cyan",
     accentHex: "#22D3EE",
-    algorithms: ["Bubble Sort", "Selection Sort", "Insertion Sort", "Merge Sort", "Quick Sort"],
+    algorithms: ["Bubble Sort", "Selection Sort", "Insertion Sort", "Merge Sort", "Quick Sort", "Heap Sort"],
   },
   {
     icon: Network,
@@ -34,6 +35,15 @@ const FEATURES = [
     accent: "green",
     accentHex: "#34D399",
     algorithms: ["Linear Search", "Binary Search"],
+  },
+  {
+    icon: NetworkIcon,
+    label: "Binary Tree",
+    title: "BST Algorithms",
+    desc: "Visualize how nodes are inserted, searched, deleted and traversed in a binary tree structure",
+    accent: "orange",
+    accentHex: "#fb923c",
+    algorithms: ["BST Insert", "BST Search", "BFS Traversal", "DFS Traversal"],
   },
 ];
 
@@ -55,7 +65,7 @@ export default function LandingPage() {
           className="absolute inset-0 opacity-100"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px)",
+              "linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px)",
             backgroundSize: "48px 48px",
           }}
         />
@@ -67,7 +77,7 @@ export default function LandingPage() {
         {/* ── Nav ─────────────────────────────────────────────────────── */}
         <header
           className="sticky top-0 z-50 border-b"
-          style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(8,8,16,0.85)", backdropFilter: "blur(20px)" }}
+          style={{ borderColor: "var(--surface-5)", background: "var(--bg-header)", backdropFilter: "blur(20px)" }}
         >
           <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
@@ -83,7 +93,7 @@ export default function LandingPage() {
             </div>
 
             <nav className="hidden md:flex items-center gap-6">
-              {["Sorting", "Pathfinding", "Searching"].map((item) => (
+              {["Sorting", "Pathfinding", "Searching", "Binary Tree"].map((item) => (
                 <Link
                   key={item}
                   href="/visualizer"
@@ -96,7 +106,7 @@ export default function LandingPage() {
 
             <div className="flex items-center gap-3">
               <a
-                href="https://github.com"
+                href="https://github.com/DDDesignDev/AlgoViz"
                 className="text-text-muted hover:text-text-secondary transition-colors"
                 aria-label="GitHub"
               >
@@ -137,7 +147,7 @@ export default function LandingPage() {
                 <span
                   className="w-1.5 h-1.5 rounded-full bg-accent-cyan animate-pulse-slow"
                 />
-                11 algorithms · Step-through · Open source
+                16 algorithms · Step-through · Open source
               </span>
             </motion.div>
 
@@ -176,7 +186,7 @@ export default function LandingPage() {
                 className="group inline-flex items-center gap-2 font-semibold text-sm px-5 py-2.5 rounded-xl transition-all"
                 style={{
                   background: "#22D3EE",
-                  color: "#080810",
+                  color: "var(--bg-primary)",
                   boxShadow: "0 0 0 1px #22D3EE, 0 4px 24px rgba(34,211,238,0.22)",
                 }}
               >
@@ -186,7 +196,7 @@ export default function LandingPage() {
               <a
                 href="https://github.com"
                 className="inline-flex items-center gap-2 text-sm font-medium px-5 py-2.5 rounded-xl transition-all text-text-secondary hover:text-text-primary"
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+                style={{ background: "var(--surface-3)", border: "1px solid var(--border-default)" }}
               >
                 <Code2 className="w-4 h-4" /> View source
               </a>
@@ -203,18 +213,18 @@ export default function LandingPage() {
         >
           <div
             className="grid grid-cols-4 rounded-2xl overflow-hidden"
-            style={{ border: "1px solid rgba(255,255,255,0.06)", background: "rgba(18,18,32,0.7)" }}
+            style={{ border: "1px solid var(--surface-5)", background: "var(--surface-glass)" }}
           >
             {[
-              { value: "11",   label: "Algorithms",   accent: "#22D3EE" },
-              { value: "3",    label: "Categories",   accent: "#A78BFA" },
+              { value: "16",   label: "Algorithms",   accent: "#22D3EE" },
+              { value: "4",    label: "Categories",   accent: "#A78BFA" },
               { value: "∞",    label: "Step modes",   accent: "#34D399" },
               { value: "MIT",  label: "Open source",  accent: "#FBBF24" },
             ].map((s, i, arr) => (
               <div
                 key={s.label}
                 className="py-7 text-center"
-                style={{ borderRight: i < arr.length - 1 ? "1px solid rgba(255,255,255,0.06)" : undefined }}
+                style={{ borderRight: i < arr.length - 1 ? "1px solid var(--surface-5)" : undefined }}
               >
                 <div
                   className="font-display text-3xl font-bold mb-1"
@@ -238,7 +248,7 @@ export default function LandingPage() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="font-display text-3xl font-bold text-text-primary mb-3" style={{ letterSpacing: "-0.02em" }}>
-              Three categories, one tool
+              Four categories, one tool
             </h2>
             <p className="text-text-secondary text-base max-w-lg">
               Every algorithm ships with complexity tables, plain-language descriptions,
@@ -246,7 +256,7 @@ export default function LandingPage() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {FEATURES.map((feat, i) => (
               <motion.div
                 key={feat.title}
@@ -257,8 +267,8 @@ export default function LandingPage() {
                 whileHover={{ y: -3, transition: { duration: 0.2 } }}
                 className="group relative rounded-2xl p-6 flex flex-col"
                 style={{
-                  background: "rgba(18,18,32,0.8)",
-                  border: "1px solid rgba(255,255,255,0.06)",
+                  background: "var(--surface-glass)",
+                  border: "1px solid var(--surface-5)",
                   boxShadow: "0 1px 3px rgba(0,0,0,0.4)",
                 }}
               >
@@ -293,9 +303,9 @@ export default function LandingPage() {
                       key={alg}
                       className="text-[11px] font-mono px-2 py-0.5 rounded-md"
                       style={{
-                        background: "rgba(255,255,255,0.04)",
-                        border: "1px solid rgba(255,255,255,0.07)",
-                        color: "#7878A0",
+                        background: "var(--surface-3)",
+                        border: "1px solid var(--border-default)",
+                        color: "var(--text-secondary)",
                       }}
                     >
                       {alg}
@@ -322,10 +332,10 @@ export default function LandingPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.07 }}
                 className="flex items-start gap-4 p-5 rounded-xl"
-                style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}
+                style={{ background: "var(--surface-1)", border: "1px solid var(--surface-4)" }}
               >
                 <div className="w-8 h-8 rounded-lg bg-bg-elevated flex items-center justify-center shrink-0 mt-0.5"
-                  style={{ border: "1px solid rgba(255,255,255,0.06)" }}>
+                  style={{ border: "1px solid var(--surface-5)" }}>
                   <item.icon className="w-4 h-4 text-text-secondary" />
                 </div>
                 <div>
@@ -344,7 +354,7 @@ export default function LandingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="relative rounded-2xl overflow-hidden p-12 text-center"
-            style={{ background: "rgba(18,18,32,0.9)", border: "1px solid rgba(255,255,255,0.07)" }}
+            style={{ background: "var(--surface-glass)", border: "1px solid var(--border-default)" }}
           >
             <div className="absolute inset-0 pointer-events-none">
               <div className="absolute inset-0 opacity-60"
@@ -363,7 +373,7 @@ export default function LandingPage() {
               <Link
                 href="/visualizer"
                 className="inline-flex items-center gap-2 font-semibold text-sm px-6 py-3 rounded-xl transition-all"
-                style={{ background: "#22D3EE", color: "#080810", boxShadow: "0 4px 24px rgba(34,211,238,0.25)" }}
+                style={{ background: "#22D3EE", color: "var(--bg-primary)", boxShadow: "0 4px 24px rgba(34,211,238,0.25)" }}
               >
                 Open visualizer <ArrowRight className="w-4 h-4" />
               </Link>
@@ -372,7 +382,7 @@ export default function LandingPage() {
         </section>
 
         {/* ── Footer ──────────────────────────────────────────────────── */}
-        <footer style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }} className="py-8">
+        <footer style={{ borderTop: "1px solid var(--surface-4)" }} className="py-8">
           <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div

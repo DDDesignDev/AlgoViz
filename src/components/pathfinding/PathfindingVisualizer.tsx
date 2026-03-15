@@ -157,7 +157,7 @@ export default function PathfindingVisualizer({ algorithmId }: { algorithmId: st
         {/* Header */}
         <div
           className="flex items-center justify-between px-6 h-12 shrink-0"
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", background: "#0D0D18" }}
+          style={{ borderBottom: "1px solid var(--surface-4)", background: "var(--bg-secondary)" }}
         >
           <div className="flex items-center gap-3">
             <h1 className="font-display font-bold text-text-primary text-sm tracking-tight">{info.name}</h1>
@@ -180,7 +180,7 @@ export default function PathfindingVisualizer({ algorithmId }: { algorithmId: st
               <span className="text-[10px] text-text-muted ml-1.5">path</span>
             </div>
             <div className="flex items-center gap-2 ml-2">
-              <div className="w-24 h-0.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
+              <div className="w-24 h-0.5 rounded-full overflow-hidden" style={{ background: "var(--surface-5)" }}>
                 <motion.div className="h-full rounded-full" style={{ background: "#A78BFA" }} animate={{ width: `${progress}%` }} transition={{ duration: 0.08 }} />
               </div>
             </div>
@@ -190,7 +190,7 @@ export default function PathfindingVisualizer({ algorithmId }: { algorithmId: st
         {/* Toolbar */}
         <div
           className="flex items-center gap-3 px-6 h-11 shrink-0 flex-wrap"
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.04)", background: "#080810" }}
+          style={{ borderBottom: "1px solid var(--surface-3)", background: "var(--bg-primary)" }}
         >
           <ControlBar
             playState={playState} speed={speed}
@@ -201,7 +201,7 @@ export default function PathfindingVisualizer({ algorithmId }: { algorithmId: st
             {/* Draw mode pill */}
             <div
               className="flex items-center gap-0.5 rounded-lg p-0.5"
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}
+              style={{ background: "var(--surface-3)", border: "1px solid var(--surface-5)" }}
             >
               {DRAW_MODES.map((m) => (
                 <button
@@ -226,7 +226,7 @@ export default function PathfindingVisualizer({ algorithmId }: { algorithmId: st
               onClick={handleRandomWalls}
               disabled={playState === "playing"}
               className="inline-flex items-center gap-1.5 h-7 px-2.5 rounded-lg text-xs text-text-secondary hover:text-text-primary transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+              style={{ background: "var(--surface-3)", border: "1px solid var(--border-default)" }}
             >
               <Shuffle className="w-3 h-3" /> Random
             </button>
@@ -234,7 +234,7 @@ export default function PathfindingVisualizer({ algorithmId }: { algorithmId: st
               onClick={handleClearWalls}
               disabled={playState === "playing"}
               className="inline-flex items-center gap-1.5 h-7 px-2.5 rounded-lg text-xs text-text-secondary hover:text-text-primary transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+              style={{ background: "var(--surface-3)", border: "1px solid var(--border-default)" }}
             >
               <Eraser className="w-3 h-3" /> Clear
             </button>
@@ -244,12 +244,12 @@ export default function PathfindingVisualizer({ algorithmId }: { algorithmId: st
         {/* Legend */}
         <div
           className="flex items-center gap-5 px-6 h-8 shrink-0"
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.04)", background: "#080810" }}
+          style={{ borderBottom: "1px solid var(--surface-3)", background: "var(--bg-primary)" }}
         >
           {[
             { color: "#34D399", label: "Start" },
             { color: "#F87171", label: "End" },
-            { color: "#1a1a30", label: "Wall", border: "rgba(255,255,255,0.08)" },
+            { color: "var(--cell-wall)", label: "Wall", border: "var(--border-default)" },
             { color: "rgba(167,139,250,0.4)", label: "Visited" },
             { color: "rgba(34,211,238,0.28)", label: "Frontier" },
             { color: "#FBBF24", label: "Path" },
@@ -265,7 +265,7 @@ export default function PathfindingVisualizer({ algorithmId }: { algorithmId: st
         </div>
 
         {/* Grid */}
-        <div className="flex-1 overflow-hidden flex items-center justify-center p-5" style={{ background: "#080810" }}>
+        <div className="flex-1 overflow-hidden flex items-center justify-center p-5" style={{ background: "var(--bg-primary)" }}>
           <PathGrid
             grid={grid}
             onCellClick={handleCellInteract}
@@ -280,7 +280,7 @@ export default function PathfindingVisualizer({ algorithmId }: { algorithmId: st
       {/* Info panel */}
       <aside
         className="w-64 overflow-y-auto shrink-0 p-4"
-        style={{ borderLeft: "1px solid rgba(255,255,255,0.05)", background: "#0D0D18" }}
+        style={{ borderLeft: "1px solid var(--surface-4)", background: "var(--bg-secondary)" }}
       >
         <AlgorithmInfoPanel algorithmId={algorithmId} currentStep={currentDesc || undefined} />
       </aside>

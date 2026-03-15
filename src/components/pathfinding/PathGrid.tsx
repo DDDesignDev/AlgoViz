@@ -15,13 +15,13 @@ interface PathGridProps {
 /* Map cell type → inline CSS background color */
 function cellColor(type: CellType): string {
   switch (type) {
-    case "wall":     return "#1a1a30";
+    case "wall":     return "var(--cell-wall)";
     case "start":    return "#34D399";
     case "end":      return "#F87171";
     case "visited":  return "rgba(167,139,250,0.38)";
     case "frontier": return "rgba(34,211,238,0.28)";
     case "path":     return "#FBBF24";
-    default:         return "rgba(255,255,255,0.03)";
+    default:         return "var(--surface-2)";
   }
 }
 
@@ -60,13 +60,13 @@ export default function PathGrid({ grid, onCellClick, onCellDrag, isDrawing, set
         aspectRatio: `${cols} / ${rows}`,
         width: "100%",
         maxWidth: "860px",
-        border: "1px solid rgba(255,255,255,0.06)",
-        boxShadow: "0 0 0 1px rgba(255,255,255,0.02), 0 8px 32px rgba(0,0,0,0.5)",
+        border: "1px solid var(--surface-5)",
+        boxShadow: "0 0 0 1px var(--surface-1), 0 8px 32px rgba(0,0,0,0.5)",
         display: "grid",
         gridTemplateColumns: `repeat(${cols}, 1fr)`,
         gridTemplateRows: `repeat(${rows}, 1fr)`,
         gap: "1px",
-        background: "rgba(255,255,255,0.03)",
+        background: "var(--surface-2)",
       }}
       onMouseDown={(e) => { setIsDrawing(true); const c = getCellFromEvent(e); if (c) onCellClick(c.row, c.col); }}
       onMouseMove={(e) => { if (!isDrawing) return; const c = getCellFromEvent(e); if (c) onCellDrag(c.row, c.col); }}

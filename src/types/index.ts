@@ -1,6 +1,6 @@
 // ─── Shared ───────────────────────────────────────────────────────────────────
 
-export type AlgorithmCategory = "sorting" | "pathfinding" | "searching";
+export type AlgorithmCategory = "sorting" | "pathfinding" | "searching" | "tree";
 
 export type PlayState = "idle" | "playing" | "paused" | "finished";
 
@@ -97,3 +97,38 @@ export interface SearchStep {
   found: boolean;
   foundIndex: number | null;
 }
+
+// ─── Binary Tree ──────────────────────────────────────────────────────────────
+
+export type TreeNodeState =
+  | "default"
+  | "comparing"
+  | "visiting"
+  | "found"
+  | "inserting"
+  | "path"
+  | "sorted";   // used when highlighting in-order sorted sequence
+
+export interface TreeNode {
+  id: number;
+  value: number;
+  left: number | null;   // id of left child, or null
+  right: number | null;  // id of right child
+  parent: number | null; // id of parent, or null
+  state: TreeNodeState;
+  // Layout coordinates — computed before rendering
+  x: number;
+  y: number;
+  depth: number;
+}
+
+// The full tree is a flat map of id → TreeNode for O(1) lookup
+export type TreeMap = Record<number, TreeNode>;
+
+export interface TreeStep {
+  nodes: TreeMap;
+  description: string;
+  highlightedPath?: number[]; // ordered list of node ids for path drawing
+}
+
+export type TreeTraversalOrder = "preorder" | "inorder" | "postorder";

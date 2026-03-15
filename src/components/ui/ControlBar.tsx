@@ -44,7 +44,7 @@ export default function ControlBar({
         )}
         style={
           isFinished
-            ? { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.06)" }
+            ? { background: "var(--surface-4)", border: "1px solid var(--surface-5)" }
             : isPlaying
             ? { background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.28)" }
             : { background: "#22D3EE", boxShadow: "0 0 0 1px #22D3EE, 0 2px 12px rgba(34,211,238,0.22)" }
@@ -62,7 +62,7 @@ export default function ControlBar({
         onClick={onStep}
         disabled={isPlaying || isFinished}
         className="inline-flex items-center gap-1 h-8 px-3 rounded-lg text-[13px] font-medium text-text-secondary hover:text-text-primary transition-all disabled:opacity-30 disabled:cursor-not-allowed select-none"
-        style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+        style={{ background: "var(--surface-3)", border: "1px solid var(--border-default)" }}
       >
         <ChevronRight className="w-3.5 h-3.5" /> Step
       </button>
@@ -71,13 +71,13 @@ export default function ControlBar({
       <button
         onClick={onReset}
         className="inline-flex items-center gap-1 h-8 px-3 rounded-lg text-[13px] font-medium text-text-secondary hover:text-text-primary transition-all select-none"
-        style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+        style={{ background: "var(--surface-3)", border: "1px solid var(--border-default)" }}
       >
         <RotateCcw className="w-3 h-3" /> Reset
       </button>
 
       {/* ── Separator ── */}
-      <div className="w-px h-5 mx-1" style={{ background: "rgba(255,255,255,0.07)" }} />
+      <div className="w-px h-5 mx-1" style={{ background: "var(--border-default)" }} />
 
       {/* ── Speed ── */}
       <div className="flex items-center gap-2">
@@ -97,7 +97,7 @@ export default function ControlBar({
       {/* ── Extra controls ── */}
       {children && (
         <>
-          <div className="w-px h-5 mx-1" style={{ background: "rgba(255,255,255,0.07)" }} />
+          <div className="w-px h-5 mx-1" style={{ background: "var(--border-default)" }} />
           {children}
         </>
       )}

@@ -14,7 +14,7 @@ function barStyle(state: string): React.CSSProperties {
       return {
         background: "#22D3EE",
         borderColor: "#22D3EE",
-        color: "#080810",
+        color: "var(--bg-primary)",
         boxShadow: "0 0 20px rgba(34,211,238,0.4)",
         transform: "translateY(-4px)",
       };
@@ -22,15 +22,15 @@ function barStyle(state: string): React.CSSProperties {
       return {
         background: "#34D399",
         borderColor: "#34D399",
-        color: "#080810",
+        color: "var(--bg-primary)",
         boxShadow: "0 0 24px rgba(52,211,153,0.5)",
         transform: "translateY(-6px)",
       };
     case "eliminated":
       return {
-        background: "rgba(255,255,255,0.02)",
-        borderColor: "rgba(255,255,255,0.04)",
-        color: "#3E3E60",
+        background: "var(--surface-1)",
+        borderColor: "var(--surface-3)",
+        color: "var(--text-muted)",
         opacity: 0.4,
       };
     case "range":
@@ -41,9 +41,9 @@ function barStyle(state: string): React.CSSProperties {
       };
     default:
       return {
-        background: "rgba(255,255,255,0.05)",
-        borderColor: "rgba(255,255,255,0.09)",
-        color: "#7878A0",
+        background: "var(--surface-4)",
+        borderColor: "var(--border-bright)",
+        color: "var(--text-secondary)",
       };
   }
 }
