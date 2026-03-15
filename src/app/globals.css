@@ -5,12 +5,23 @@
 @tailwind utilities;
 
 :root {
-  /* Backgrounds — very dark, with subtle blue undertone */
+  color-scheme: dark;
+
+  /* Backgrounds */
   --bg-primary:   #080810;
   --bg-secondary: #0D0D18;
   --bg-card:      #121220;
   --bg-elevated:  #181828;
   --bg-hover:     #1E1E32;
+  --bg-header:    rgba(8, 8, 16, 0.85);
+
+  /* Surfaces */
+  --surface-1: rgba(255, 255, 255, 0.02);
+  --surface-2: rgba(255, 255, 255, 0.03);
+  --surface-3: rgba(255, 255, 255, 0.04);
+  --surface-4: rgba(255, 255, 255, 0.05);
+  --surface-5: rgba(255, 255, 255, 0.06);
+  --surface-glass: rgba(18, 18, 32, 0.72);
 
   /* Accents */
   --accent-cyan:   #22D3EE;
@@ -20,23 +31,63 @@
   --accent-red:    #F87171;
   --accent-pink:   #F472B6;
 
-  /* Borders — crisp, low-opacity */
-  --border-subtle:  rgba(255,255,255,0.04);
-  --border-default: rgba(255,255,255,0.07);
-  --border-bright:  rgba(255,255,255,0.13);
-  --border-focus:   rgba(34,211,238,0.5);
+  /* Borders */
+  --border-subtle:  rgba(255, 255, 255, 0.05);
+  --border-default: rgba(255, 255, 255, 0.08);
+  --border-bright:  rgba(255, 255, 255, 0.13);
+  --border-focus:   rgba(34, 211, 238, 0.5);
 
   /* Text */
   --text-primary:   #EEEEF8;
   --text-secondary: #7878A0;
   --text-muted:     #3E3E60;
 
+  /* Misc */
+  --grid-line: rgba(255, 255, 255, 0.018);
+  --cell-wall: #1a1a30;
+
   /* Shadows */
-  --shadow-sm:  0 1px 3px rgba(0,0,0,0.4);
-  --shadow-md:  0 4px 16px rgba(0,0,0,0.5);
-  --shadow-lg:  0 8px 32px rgba(0,0,0,0.6);
-  --shadow-cyan:   0 0 24px rgba(34,211,238,0.18);
-  --shadow-purple: 0 0 24px rgba(167,139,250,0.18);
+  --shadow-sm:     0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md:     0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg:     0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-cyan:   0 0 24px rgba(34, 211, 238, 0.18);
+  --shadow-purple: 0 0 24px rgba(167, 139, 250, 0.18);
+  --shadow-card:   0 1px 3px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg-primary:   #f5f7fb;
+  --bg-secondary: #ffffff;
+  --bg-card:      #ffffff;
+  --bg-elevated:  #edf2f8;
+  --bg-hover:     #e6ecf5;
+  --bg-header:    rgba(245, 247, 251, 0.9);
+
+  --surface-1: rgba(15, 23, 42, 0.03);
+  --surface-2: rgba(15, 23, 42, 0.05);
+  --surface-3: rgba(15, 23, 42, 0.07);
+  --surface-4: rgba(15, 23, 42, 0.09);
+  --surface-5: rgba(15, 23, 42, 0.12);
+  --surface-glass: rgba(255, 255, 255, 0.78);
+
+  --border-subtle:  rgba(15, 23, 42, 0.09);
+  --border-default: rgba(15, 23, 42, 0.16);
+  --border-bright:  rgba(15, 23, 42, 0.24);
+  --border-focus:   rgba(34, 211, 238, 0.45);
+
+  --text-primary:   #0f172a;
+  --text-secondary: #334155;
+  --text-muted:     #64748b;
+
+  --grid-line: rgba(15, 23, 42, 0.07);
+  --cell-wall: #64748b;
+
+  --shadow-sm:     0 1px 3px rgba(15, 23, 42, 0.08);
+  --shadow-md:     0 6px 18px rgba(15, 23, 42, 0.1);
+  --shadow-lg:     0 12px 36px rgba(15, 23, 42, 0.12);
+  --shadow-card:   0 1px 2px rgba(15, 23, 42, 0.04), 0 0 0 1px rgba(15, 23, 42, 0.08);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -51,6 +102,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   letter-spacing: -0.01em;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* ── Scrollbar ─────────────────────────────────────────────────────────────── */
@@ -77,7 +129,7 @@ body {
 
 /* ── Glass surface ─────────────────────────────────────────────────────────── */
 .glass {
-  background: rgba(18, 18, 32, 0.72);
+  background: var(--surface-glass);
   backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid var(--border-subtle);
 }
@@ -85,8 +137,8 @@ body {
 /* ── Subtle grid pattern ───────────────────────────────────────────────────── */
 .bg-grid {
   background-image:
-    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
@@ -144,7 +196,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
 
 /* ── Pathfinding cell classes ──────────────────────────────────────────────── */
 .cell-empty    { background: var(--bg-card); }
-.cell-wall     { background: #1a1a30; }
+.cell-wall     { background: var(--cell-wall); }
 .cell-start    { background: var(--accent-green); box-shadow: 0 0 10px rgba(52,211,153,0.55); }
 .cell-end      { background: var(--accent-red);   box-shadow: 0 0 10px rgba(248,113,113,0.55); }
 .cell-visited  { background: rgba(167,139,250,0.35); }
