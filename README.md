@@ -28,7 +28,7 @@
 
 AlgoViz is a portfolio-quality, browser-based tool for visualizing classic computer science algorithms. Each algorithm runs as a **step-by-step animation** — you can play it at any speed, pause mid-execution, advance one operation at a time, or reset and try again. A persistent info panel explains what the algorithm does, its time and space complexity, and the specific operation happening at the current step.
 
-The project covers three categories — **sorting**, **pathfinding**, and **searching** — across 11 algorithms total. It is designed to be extended: adding a new algorithm requires touching exactly three places in the codebase.
+The project now covers four categories — **sorting**, **pathfinding**, **searching**, and **binary tree (BST)** — across 16 algorithms total. It is designed to be extended: adding a new algorithm still follows a predictable workflow in a few focused files.
 
 ---
 
@@ -65,11 +65,18 @@ The constraints I imposed on myself pushed me toward patterns I use in productio
 - Custom target value input, or auto-pick a random existing value
 - Mid / low / high pointer indicators for Binary Search
 
+### Binary tree (BST) visualizer
+- Interactive BST workflows: Insert, Search, BFS Traversal, and DFS Traversal
+- DFS traversal order switcher: preorder, inorder, postorder
+- Path highlighting for comparisons and traversal progress
+- One-click random tree generation for fresh runs
+
 ### Info panel (all visualizers)
 - Live step annotation — updates every frame with a plain-language description
 - Complexity table: best, average, and worst case time
 - Space complexity and stability flag (sorting)
 - Real-world use-case list per algorithm
+- Built-in implementation viewer with language switching (JavaScript / Python / Java)
 
 ---
 
@@ -101,6 +108,30 @@ The constraints I imposed on myself pushed me toward patterns I use in productio
 |---|---|---|---|---|
 | Linear Search | `O(1)` | `O(n)` | `O(1)` | ❌ |
 | Binary Search | `O(1)` | `O(log n)` | `O(1)` | ✅ |
+
+### Binary Tree (BST)
+
+| Algorithm | Best | Average | Worst | Space |
+|---|---|---|---|---|
+| BST Insert | `O(log n)` | `O(log n)` | `O(n)` | `O(n)` |
+| BST Search | `O(1)` | `O(log n)` | `O(n)` | `O(1)` |
+| BFS Traversal | `O(n)` | `O(n)` | `O(n)` | `O(n)` |
+| DFS Traversal | `O(n)` | `O(n)` | `O(n)` | `O(h)` |
+
+### Code snippets
+
+Every algorithm in the info panel includes implementation snippets in **JavaScript, Python, and Java**.
+
+```javascript
+function search(root, target) {
+  let cur = root;
+  while (cur) {
+    if (cur.value === target) return cur;
+    cur = target < cur.value ? cur.left : cur.right;
+  }
+  return null;
+}
+```
 
 ---
 
@@ -135,26 +166,30 @@ src/
 │   │   ├── Sidebar.tsx          # collapsible category nav, animated active bar
 │   │   └── AlgorithmInfoPanel.tsx
 │   ├── ui/
-│   │   └── ControlBar.tsx       # shared across all three visualizers
+│   │   └── ControlBar.tsx       # shared across all four visualizers
 │   ├── sorting/
 │   │   ├── SortingVisualizer.tsx
 │   │   └── SortBars.tsx
 │   ├── pathfinding/
 │   │   ├── PathfindingVisualizer.tsx
 │   │   └── PathGrid.tsx
-│   └── searching/
-│       ├── SearchingVisualizer.tsx
-│       └── SearchBars.tsx
+│   ├── searching/
+│   │   ├── SearchingVisualizer.tsx
+│   │   └── SearchBars.tsx
+│   └── tree/
+│       ├── TreeVisualizer.tsx
+│       └── TreeCanvas.tsx
 │
 ├── lib/
 │   ├── utils.ts                 # cn(), generators, speedToDelay()
 │   └── algorithms/
-│       ├── sorting/index.ts     # 5 pure step-generator functions
+│       ├── sorting/index.ts     # 6 pure step-generator functions
 │       ├── pathfinding/index.ts # 4 algorithms + grid helpers
-│       └── searching/index.ts   # 2 pure step-generator functions
+│       ├── searching/index.ts   # 2 pure step-generator functions
+│       └── tree/index.ts        # BST + traversal step generators + layout
 │
-├── types/index.ts               # SortBar, Cell, SearchBar, PlayState, Step types
-└── constants/algorithms.ts      # metadata: name, complexity, description, use cases
+├── types/index.ts               # SortBar, Cell, SearchBar, TreeNode, PlayState, Step types
+└── constants/algorithms.ts      # metadata + complexity + per-language code snippets
 ```
 
 ### The step-generator pattern
@@ -189,11 +224,12 @@ const advance = useCallback(() => {
 
 ### Adding a new algorithm
 
-Three steps, no UI changes required:
+Three core steps (plus optional snippets):
 
 1. Add an entry to `ALGORITHM_INFO` in `src/constants/algorithms.ts`
 2. Write a `generateXxxSteps()` function in the appropriate `src/lib/algorithms/` file
 3. Add a `case` to the `switch` in the visualizer component
+4. (Optional) Add language snippets in `ALGORITHM_CODE_SNIPPETS` for the info panel
 
 ---
 

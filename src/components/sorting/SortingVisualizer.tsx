@@ -106,7 +106,7 @@ export default function SortingVisualizer({ algorithmId }: { algorithmId: string
   const progress = steps.length > 0 ? Math.round(((stepIndex + 1) / steps.length) * 100) : 0;
 
   return (
-    <div className="flex h-full overflow-hidden">
+    <div className="flex h-full min-h-0 overflow-hidden flex-col lg:flex-row">
       {/* ── Main canvas ─────────────────────────────────────────────── */}
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Header */}
@@ -201,8 +201,8 @@ export default function SortingVisualizer({ algorithmId }: { algorithmId: string
 
       {/* ── Info panel ──────────────────────────────────────────────── */}
       <aside
-        className="w-80 overflow-y-auto shrink-0 p-4"
-        style={{ borderLeft: "1px solid var(--surface-4)", background: "var(--bg-secondary)" }}
+        className="w-full lg:w-80 overflow-y-auto shrink-0 p-4 max-h-[42vh] lg:max-h-none border-t lg:border-t-0 lg:border-l"
+        style={{ borderColor: "var(--surface-4)", background: "var(--bg-secondary)" }}
       >
         <AlgorithmInfoPanel algorithmId={algorithmId} currentStep={currentDescription} />
       </aside>

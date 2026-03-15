@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils";
 interface SidebarProps {
   selectedAlgorithm: string;
   onSelect: (algId: string, category: AlgorithmCategory) => void;
+  className?: string;
 }
 
 const CATEGORIES = [
@@ -58,7 +59,7 @@ const CATEGORIES = [
   },
 ];
 
-export default function Sidebar({ selectedAlgorithm, onSelect }: SidebarProps) {
+export default function Sidebar({ selectedAlgorithm, onSelect, className }: SidebarProps) {
   const activeCat = CATEGORIES.find((c) => c.algorithms.includes(selectedAlgorithm));
   const [expanded, setExpanded] = useState<Record<string, boolean>>({
     sorting: true,
@@ -73,7 +74,7 @@ export default function Sidebar({ selectedAlgorithm, onSelect }: SidebarProps) {
 
   return (
     <aside
-      className="w-56 flex flex-col h-full overflow-y-auto shrink-0"
+      className={cn("w-56 flex flex-col h-full overflow-y-auto shrink-0", className)}
       style={{ borderRight: "1px solid var(--surface-4)", background: "var(--bg-secondary)" }}
     >
       {/* ── Logo ────────────────────────────────────────────────────── */}

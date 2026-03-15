@@ -2,27 +2,56 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import Sidebar from "@/components/layout/Sidebar";
 import SortingVisualizer from "@/components/sorting/SortingVisualizer";
 import PathfindingVisualizer from "@/components/pathfinding/PathfindingVisualizer";
 import SearchingVisualizer from "@/components/searching/SearchingVisualizer";
 import { AlgorithmCategory } from "@/types";
 import TreeVisualizer from "@/components/tree/TreeVisualizer";
+import { cn } from "@/lib/utils";
 
 export default function VisualizerPage() {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("bubbleSort");
   const [category, setCategory] = useState<AlgorithmCategory>("sorting");
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   function handleSelect(algId: string, cat: AlgorithmCategory) {
     setSelectedAlgorithm(algId);
     setCategory(cat);
+    setMobileSidebarOpen(false);
   }
 
   return (
-    <div className="flex h-screen overflow-hidden" style={{ background: "var(--bg-primary)" }}>
-      <Sidebar selectedAlgorithm={selectedAlgorithm} onSelect={handleSelect} />
+    <div className="relative flex h-[100dvh] overflow-hidden" style={{ background: "var(--bg-primary)" }}>
+      <button
+        onClick={() => setMobileSidebarOpen((p) => !p)}
+        className="md:hidden absolute top-2 left-2 z-50 inline-flex items-center justify-center w-9 h-9 rounded-lg"
+        style={{ background: "var(--surface-2)", border: "1px solid var(--surface-5)" }}
+        aria-label={mobileSidebarOpen ? "Close menu" : "Open menu"}
+      >
+        {mobileSidebarOpen ? <X className="w-4 h-4 text-text-secondary" /> : <Menu className="w-4 h-4 text-text-secondary" />}
+      </button>
 
-      <main className="flex-1 overflow-hidden relative">
+      {mobileSidebarOpen && (
+        <button
+          className="md:hidden absolute inset-0 z-30"
+          style={{ background: "rgba(0,0,0,0.45)" }}
+          aria-label="Close menu overlay"
+          onClick={() => setMobileSidebarOpen(false)}
+        />
+      )}
+
+      <Sidebar
+        selectedAlgorithm={selectedAlgorithm}
+        onSelect={handleSelect}
+        className={cn(
+          "fixed inset-y-0 left-0 z-40 transition-transform duration-200 md:static md:translate-x-0",
+          mobileSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        )}
+      />
+
+      <main className="flex-1 overflow-hidden relative min-w-0">
         <AnimatePresence mode="wait">
           <motion.div
             key={selectedAlgorithm}
