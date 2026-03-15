@@ -248,3 +248,66 @@ export function generateQuickSortSteps(initial: SortBar[]): SortStep[] {
   steps.push(snapshot(bars, "Array is fully sorted! 🎉"));
   return steps;
 }
+
+// ── Heap Sort ─────────────────────────────────────────────────────────────────
+export function generateHeapSortSteps(initial: SortBar[]): SortStep[] {
+  const bars = initial.map((b) => ({ ...b }));
+  const steps: SortStep[] = [];
+  const n = bars.length;
+
+  // Helper: restore heap property downward from index i
+  function heapify(size: number, i: number) {
+    let largest = i;
+    const left  = 2 * i + 1;
+    const right = 2 * i + 2;
+
+    bars[i].state = "comparing";
+    if (left < size)  bars[left].state  = "comparing";
+    if (right < size) bars[right].state = "comparing";
+    steps.push(snapshot(bars, `Heapify at index ${i}: checking children ${left} and ${right}`));
+
+    if (left < size && bars[left].value > bars[largest].value)   largest = left;
+    if (right < size && bars[right].value > bars[largest].value) largest = right;
+
+    if (largest !== i) {
+      bars[i].state       = "swapping";
+      bars[largest].state = "swapping";
+      steps.push(snapshot(bars, `Swapping ${bars[i].value} ↔ ${bars[largest].value} to restore heap`));
+      [bars[i], bars[largest]] = [bars[largest], bars[i]];
+      steps.push(snapshot(bars, `Swapped — heap property restored at index ${i}`));
+
+      // Reset before recursing
+      bars[i].state       = "default";
+      bars[largest].state = "default";
+      heapify(size, largest);
+    } else {
+      bars[i].state = "default";
+      if (left  < size) bars[left].state  = "default";
+      if (right < size) bars[right].state = "default";
+    }
+  }
+
+  // Phase 1: Build max-heap
+  steps.push(snapshot(bars, "Phase 1: building max-heap from the array"));
+  for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+    heapify(n, i);
+  }
+  steps.push(snapshot(bars, "Max-heap built — largest element is now at index 0"));
+
+  // Phase 2: Extract elements one by one
+  for (let i = n - 1; i > 0; i--) {
+    bars[0].state = "swapping";
+    bars[i].state = "swapping";
+    steps.push(snapshot(bars, `Placing max element ${bars[0].value} at its sorted position ${i}`));
+    [bars[0], bars[i]] = [bars[i], bars[0]];
+    bars[i].state = "sorted";
+    bars[0].state = "default";
+    steps.push(snapshot(bars, `${bars[i].value} is now in its final position`));
+    heapify(i, 0);
+  }
+
+  bars[0].state = "sorted";
+  steps.push(snapshot(bars, "Array is fully sorted! 🎉"));
+  return steps;
+}
+

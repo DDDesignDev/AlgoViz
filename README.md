@@ -16,7 +16,7 @@
 
 | Landing page | Sorting visualizer |
 |---|---|
-| ![Landing page](public/landing.png) | ![Sorting](public/sorting.png) |
+| ![Landing page](src/public/landing.png) | ![Sorting](public/sorting.png) |
 
 | Pathfinding visualizer | Searching visualizer |
 |---|---|

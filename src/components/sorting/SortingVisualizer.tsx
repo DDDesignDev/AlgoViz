@@ -11,6 +11,7 @@ import {
   generateInsertionSortSteps,
   generateMergeSortSteps,
   generateQuickSortSteps,
+  generateHeapSortSteps,
 } from "@/lib/algorithms/sorting";
 import { generateRandomBars, speedToDelay } from "@/lib/utils";
 import ControlBar from "@/components/ui/ControlBar";
@@ -26,6 +27,7 @@ function generateSteps(algorithmId: string, bars: SortBar[]): SortStep[] {
     case "insertionSort": return generateInsertionSortSteps(bars);
     case "mergeSort":     return generateMergeSortSteps(bars);
     case "quickSort":     return generateQuickSortSteps(bars);
+    case "heapSort":      return generateHeapSortSteps(bars);
     default:              return generateBubbleSortSteps(bars);
   }
 }

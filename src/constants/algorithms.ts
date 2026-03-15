@@ -79,6 +79,21 @@ export const ALGORITHM_INFO: Record<string, AlgorithmInfo> = {
       "In-memory sorting where space matters",
     ],
   },
+  heapSort: {
+    id: "heapSort",
+    name: "Heap Sort",
+    category: "sorting",
+    timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
+    spaceComplexity: "O(1)",
+    stable: false,
+    description:
+      "Heap Sort builds a max-heap from the array, then repeatedly extracts the largest element and places it at the end. It combines the speed of Merge Sort with the in-place property of Selection Sort.",
+    useCases: [
+      "When guaranteed O(n log n) is required",
+      "When O(1) auxiliary space matters",
+      "Priority queue implementations",
+    ],
+  },
 
   // ── Pathfinding ───────────────────────────────────────────────────────────
   bfs: {
@@ -175,7 +190,7 @@ export const ALGORITHM_INFO: Record<string, AlgorithmInfo> = {
   },
 };
 
-export const SORTING_ALGORITHMS = ["bubbleSort", "selectionSort", "insertionSort", "mergeSort", "quickSort"];
+export const SORTING_ALGORITHMS = ["bubbleSort", "selectionSort", "insertionSort", "mergeSort", "quickSort", "heapSort"];
 export const PATHFINDING_ALGORITHMS = ["bfs", "dfs", "dijkstra", "aStar"];
 export const SEARCHING_ALGORITHMS = ["linearSearch", "binarySearch"];
 
