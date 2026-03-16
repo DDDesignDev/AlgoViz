@@ -1,4 +1,4 @@
-# AlgoViz
+# VizaRithm
 
 > An interactive algorithm visualization tool — built to teach, demonstrate, and impress.
 
@@ -8,7 +8,7 @@
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-BB4BFF?style=flat-square&logo=framer&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)
 
-**Live demo:** [algoviz.vercel.app](#) &nbsp;·&nbsp; **Source:** [github.com/DDDesignDev/algoviz](#)
+**Live demo:** [vizarithm.vercel.app](#) &nbsp;·&nbsp; **Source:** [github.com/DDDesignDev/VizaRithm](#)
 
 ---
 
@@ -26,7 +26,7 @@
 
 ## Project overview
 
-AlgoViz is a portfolio-quality, browser-based tool for visualizing classic computer science algorithms. Each algorithm runs as a **step-by-step animation** — you can play it at any speed, pause mid-execution, advance one operation at a time, or reset and try again. A persistent info panel explains what the algorithm does, its time and space complexity, and the specific operation happening at the current step.
+VizaRithm is a portfolio-quality, browser-based tool for visualizing classic computer science algorithms. Each algorithm runs as a **step-by-step animation** — you can play it at any speed, pause mid-execution, advance one operation at a time, or reset and try again. A persistent info panel explains what the algorithm does, its time and space complexity, and the specific operation happening at the current step.
 
 The project now covers four categories — **sorting**, **pathfinding**, **searching**, and **binary tree (BST)** — across 16 algorithms total. It is designed to be extended: adding a new algorithm still follows a predictable workflow in a few focused files.
 
@@ -35,8 +35,6 @@ The project now covers four categories — **sorting**, **pathfinding**, **searc
 ## Why I built this
 
 I wanted a portfolio project that demonstrated real engineering decisions, not just UI polish. Most algorithm visualizers I found were either too simple (a single sorting demo) or too complex to follow the code. I set out to build something with a clean separation of concerns — pure logic functions, typed data structures, and a UI layer that could be swapped independently.
-
-The constraints I imposed on myself pushed me toward patterns I use in production: immutable state snapshots, ref-based interval management to avoid stale closure bugs, and a step-generator architecture that makes every algorithm trivially testable without a browser. The result is a project I can walk through with a recruiter end-to-end and explain every decision.
 
 ---
 
@@ -241,8 +239,8 @@ Three core steps (plus optional snippets):
 
 ### Local development
 ```bash
-git clone https://github.com/yourusername/algoviz.git
-cd algoviz
+git clone https://github.com/yourusername/vizarithm.git
+cd vizarithm
 npm install
 npm run dev
 # → http://localhost:3000
@@ -260,7 +258,7 @@ npm i -g vercel
 vercel   # zero config — follows Next.js conventions automatically
 ```
 
-> No environment variables required. AlgoViz is a fully static SPA with no backend dependencies.
+> No environment variables required. VizaRithm is a fully static SPA with no backend dependencies.
 
 ---
 

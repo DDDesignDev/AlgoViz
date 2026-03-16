@@ -4,7 +4,7 @@ import "./globals.css";
 
 const themeScript = `
 (() => {
-  const STORAGE_KEY = "algoviz-theme";
+  const STORAGE_KEY = "vizarithm-theme";
   const root = document.documentElement;
 
   try {
@@ -24,7 +24,7 @@ const themeScript = `
 `;
 
 export const metadata: Metadata = {
-  title: "AlgoViz — Algorithm Visualizer",
+  title: "VizaRithm — Algorithm Visualizer",
   description:
     "Interactive algorithm visualization tool for sorting, pathfinding, and searching algorithms. Built with Next.js and Framer Motion.",
   keywords: ["algorithms", "visualizer", "sorting", "pathfinding", "searching", "computer science"],

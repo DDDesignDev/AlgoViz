@@ -89,7 +89,7 @@ export default function Sidebar({ selectedAlgorithm, onSelect, className }: Side
           <Layers className="w-3 h-3 text-white" />
         </div>
         <span className="font-display font-bold text-sm text-text-primary tracking-tight">
-          AlgoViz
+          VizaRithm
         </span>
       </div>
 

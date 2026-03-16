@@ -88,7 +88,7 @@ export default function LandingPage() {
                 <Layers className="w-3.5 h-3.5 text-white" />
               </div>
               <span className="font-display font-bold text-[15px] text-text-primary tracking-tight">
-                AlgoViz
+                VizaRithm
               </span>
             </div>
 
@@ -106,7 +106,7 @@ export default function LandingPage() {
 
             <div className="flex items-center gap-3">
               <a
-                href="https://github.com/DDDesignDev/AlgoViz"
+                href="https://github.com/DDDesignDev/VizaRithm"
                 className="text-text-muted hover:text-text-secondary transition-colors"
                 aria-label="GitHub"
               >
@@ -194,7 +194,7 @@ export default function LandingPage() {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <a
-                href="https://github.com/DDDesignDev/AlgoViz"
+                href="https://github.com/DDDesignDev/VizaRithm"
                 className="inline-flex items-center gap-2 text-sm font-medium px-5 py-2.5 rounded-xl transition-all text-text-secondary hover:text-text-primary"
                 style={{ background: "var(--surface-3)", border: "1px solid var(--border-default)" }}
               >
@@ -391,7 +391,7 @@ export default function LandingPage() {
               >
                 <Layers className="w-2.5 h-2.5 text-white" />
               </div>
-              <span className="text-xs font-mono text-text-muted">AlgoViz © {new Date().getFullYear()}</span>
+              <span className="text-xs font-mono text-text-muted">VizaRithm © {new Date().getFullYear()}</span>
             </div>
             <span className="text-xs text-text-muted hidden md:block">
               Next.js · TypeScript · Tailwind · Framer Motion
