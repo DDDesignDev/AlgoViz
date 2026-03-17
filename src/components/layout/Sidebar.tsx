@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { BarChart3, Network, Search, Layers, Home, ChevronDown, GitBranch, Share2 } from "lucide-react";
+import { BarChart3, Network, Search, Layers, Home, ChevronDown, GitBranch, Share2, Blocks } from "lucide-react";
 import {
   SORTING_ALGORITHMS,
   PATHFINDING_ALGORITHMS,
@@ -11,6 +11,7 @@ import {
   ALGORITHM_INFO,
   TREE_ALGORITHMS,
   GRAPH_ALGORITHMS,
+  DYNAMIC_ALGORITHMS,
 } from "@/constants/algorithms";
 import { AlgorithmCategory } from "@/types";
 import { cn } from "@/lib/utils";
@@ -67,6 +68,15 @@ const CATEGORIES = [
     accentBorder: "rgba(249,115,22,0.18)",
     algorithms: GRAPH_ALGORITHMS,
   },
+  {
+    id: "dynamic" as AlgorithmCategory,
+    label: "Dynamic",
+    icon: Blocks,
+    accentColor: "#EC4899",
+    accentBg: "rgba(236,72,153,0.08)",
+    accentBorder: "rgba(236,72,153,0.18)",
+    algorithms: DYNAMIC_ALGORITHMS,
+  },
 ];
 
 export default function Sidebar({ selectedAlgorithm, onSelect, className }: SidebarProps) {
@@ -77,6 +87,7 @@ export default function Sidebar({ selectedAlgorithm, onSelect, className }: Side
     searching: true,
     tree: true,
     graph: true,
+    dynamic: true,
   });
 
   function toggle(id: string) {

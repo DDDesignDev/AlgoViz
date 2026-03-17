@@ -10,6 +10,7 @@ import SearchingVisualizer from "@/components/searching/SearchingVisualizer";
 import { AlgorithmCategory } from "@/types";
 import TreeVisualizer from "@/components/tree/TreeVisualizer";
 import GraphVisualizer from "@/components/graph/GraphVisualizer";
+import DynamicProgrammingVisualizer from "@/components/dynamic/DynamicProgrammingVisualizer";
 import { cn } from "@/lib/utils";
 
 export default function VisualizerPage() {
@@ -72,6 +73,7 @@ export default function VisualizerPage() {
             {category === "searching"   && <SearchingVisualizer   algorithmId={selectedAlgorithm} />}
             {category === "tree"        && <TreeVisualizer        algorithmId={selectedAlgorithm} />}
             {category === "graph"       && <GraphVisualizer       algorithmId={selectedAlgorithm} />}
+            {category === "dynamic"     && <DynamicProgrammingVisualizer algorithmId={selectedAlgorithm} />}
           </motion.div>
         </AnimatePresence>
       </main>

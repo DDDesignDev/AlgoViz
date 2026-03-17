@@ -278,6 +278,38 @@ export const ALGORITHM_INFO: Record<string, AlgorithmInfo> = {
     useCases: ["Network routing", "Weighted navigation", "Dependency cost analysis", "Shortest-path trees"],
   },
 
+  // ── Dynamic Programming ───────────────────────────────────────────────────
+  dpFibonacci: {
+    id: "dpFibonacci",
+    name: "Fibonacci DP",
+    category: "dynamic",
+    timeComplexity: { best: "O(n)", average: "O(n)", worst: "O(n)" },
+    spaceComplexity: "O(n)",
+    description:
+      "Bottom-up Fibonacci tabulation fills a 1D table from the smallest subproblems upward. Each value depends only on the two previous cells, making it the simplest example of dynamic programming.",
+    useCases: ["Teaching tabulation", "Overlapping subproblems", "Sequence recurrence optimization"],
+  },
+  dpKnapsack: {
+    id: "dpKnapsack",
+    name: "0/1 Knapsack",
+    category: "dynamic",
+    timeComplexity: { best: "O(nW)", average: "O(nW)", worst: "O(nW)" },
+    spaceComplexity: "O(nW)",
+    description:
+      "0/1 Knapsack builds a table where each cell stores the best value achievable with a prefix of items and a limited capacity. Every entry decides whether to include or exclude the current item.",
+    useCases: ["Resource allocation", "Budget optimization", "Subset selection under constraints"],
+  },
+  dpLCS: {
+    id: "dpLCS",
+    name: "Longest Common Subsequence",
+    category: "dynamic",
+    timeComplexity: { best: "O(mn)", average: "O(mn)", worst: "O(mn)" },
+    spaceComplexity: "O(mn)",
+    description:
+      "LCS fills a 2D DP table over two strings to compute the longest subsequence shared by both. Matching characters extend the diagonal, while mismatches carry the best prefix answer from top or left.",
+    useCases: ["Diff tools", "Bioinformatics sequence matching", "Version comparison"],
+  },
+
 };
 
 export const CODE_LANGUAGE_LABELS: Record<CodeLanguage, string> = {
@@ -1239,6 +1271,135 @@ def dijkstra(graph, start):
   return dist;
 }`,
   },
+  dpFibonacci: {
+    javascript: `function fibTab(n) {
+  if (n <= 1) return n;
+  const dp = Array(n + 1).fill(0);
+  dp[1] = 1;
+
+  for (let i = 2; i <= n; i++) {
+    dp[i] = dp[i - 1] + dp[i - 2];
+  }
+
+  return dp[n];
+}`,
+    python: `def fib_tab(n):
+    if n <= 1:
+        return n
+    dp = [0] * (n + 1)
+    dp[1] = 1
+
+    for i in range(2, n + 1):
+        dp[i] = dp[i - 1] + dp[i - 2]
+
+    return dp[n]`,
+    java: `static int fibTab(int n) {
+  if (n <= 1) return n;
+  int[] dp = new int[n + 1];
+  dp[1] = 1;
+
+  for (int i = 2; i <= n; i++) {
+    dp[i] = dp[i - 1] + dp[i - 2];
+  }
+
+  return dp[n];
+}`,
+  },
+  dpKnapsack: {
+    javascript: `function knapsack(values, weights, capacity) {
+  const dp = Array.from({ length: values.length + 1 }, () => Array(capacity + 1).fill(0));
+
+  for (let i = 1; i <= values.length; i++) {
+    for (let w = 0; w <= capacity; w++) {
+      if (weights[i - 1] > w) {
+        dp[i][w] = dp[i - 1][w];
+      } else {
+        dp[i][w] = Math.max(
+          dp[i - 1][w],
+          values[i - 1] + dp[i - 1][w - weights[i - 1]]
+        );
+      }
+    }
+  }
+
+  return dp[values.length][capacity];
+}`,
+    python: `def knapsack(values, weights, capacity):
+    dp = [[0] * (capacity + 1) for _ in range(len(values) + 1)]
+
+    for i in range(1, len(values) + 1):
+        for w in range(capacity + 1):
+            if weights[i - 1] > w:
+                dp[i][w] = dp[i - 1][w]
+            else:
+                dp[i][w] = max(
+                    dp[i - 1][w],
+                    values[i - 1] + dp[i - 1][w - weights[i - 1]]
+                )
+
+    return dp[len(values)][capacity]`,
+    java: `static int knapsack(int[] values, int[] weights, int capacity) {
+  int[][] dp = new int[values.length + 1][capacity + 1];
+
+  for (int i = 1; i <= values.length; i++) {
+    for (int w = 0; w <= capacity; w++) {
+      if (weights[i - 1] > w) {
+        dp[i][w] = dp[i - 1][w];
+      } else {
+        dp[i][w] = Math.max(
+          dp[i - 1][w],
+          values[i - 1] + dp[i - 1][w - weights[i - 1]]
+        );
+      }
+    }
+  }
+
+  return dp[values.length][capacity];
+}`,
+  },
+  dpLCS: {
+    javascript: `function lcs(a, b) {
+  const dp = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
+
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      if (a[i - 1] === b[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1] + 1;
+      } else {
+        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+      }
+    }
+  }
+
+  return dp[a.length][b.length];
+}`,
+    python: `def lcs(a, b):
+    dp = [[0] * (len(b) + 1) for _ in range(len(a) + 1)]
+
+    for i in range(1, len(a) + 1):
+        for j in range(1, len(b) + 1):
+            if a[i - 1] == b[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            else:
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+    return dp[len(a)][len(b)]`,
+    java: `static int lcs(String a, String b) {
+  int[][] dp = new int[a.length() + 1][b.length() + 1];
+
+  for (int i = 1; i <= a.length(); i++) {
+    for (int j = 1; j <= b.length(); j++) {
+      if (a.charAt(i - 1) == b.charAt(j - 1)) {
+        dp[i][j] = dp[i - 1][j - 1] + 1;
+      } else {
+        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+      }
+    }
+  }
+
+  return dp[a.length()][b.length()];
+}`,
+  },
 };
 
 export const SORTING_ALGORITHMS = ["bubbleSort", "selectionSort", "insertionSort", "mergeSort", "quickSort", "heapSort", "bogoSort"];
@@ -1246,6 +1407,7 @@ export const PATHFINDING_ALGORITHMS = ["bfs", "dfs", "dijkstra", "aStar"];
 export const SEARCHING_ALGORITHMS = ["linearSearch", "binarySearch"];
 export const TREE_ALGORITHMS = ["bstInsert", "bstSearch", "bfsBST", "dfsBST"];
 export const GRAPH_ALGORITHMS = ["graphBFS", "graphDFS", "graphDijkstra"];
+export const DYNAMIC_ALGORITHMS = ["dpFibonacci", "dpKnapsack", "dpLCS"];
 
 export const CATEGORY_LABELS: Record<string, string> = {
   sorting: "Sorting",
@@ -1253,6 +1415,7 @@ export const CATEGORY_LABELS: Record<string, string> = {
   searching: "Searching",
   tree: "Trees",
   graph: "Graphs",
+  dynamic: "Dynamic Programming",
 };
 
 export const DEFAULT_SPEED = 50; // ms delay

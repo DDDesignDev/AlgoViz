@@ -28,7 +28,7 @@
 
 VizaRithm is a portfolio-quality, browser-based tool for visualizing classic computer science algorithms. Each algorithm runs as a **step-by-step animation** — you can play it at any speed, pause mid-execution, advance one operation at a time, or reset and try again. A persistent info panel explains what the algorithm does, its time and space complexity, and the specific operation happening at the current step.
 
-The project now covers five categories — **sorting**, **pathfinding**, **searching**, **binary tree (BST)**, and **graphs** — across 20 algorithms total. It is designed to be extended: adding a new algorithm still follows a predictable workflow in a few focused files.
+The project now covers six categories — **sorting**, **pathfinding**, **searching**, **binary tree (BST)**, **graphs**, and **dynamic programming** — across 23 algorithms total. It is designed to be extended: adding a new algorithm still follows a predictable workflow in a few focused files.
 
 ---
 
@@ -73,6 +73,11 @@ I wanted a portfolio project that demonstrated real engineering decisions, not j
 - Weighted node-link graph with one-click random graph generation
 - BFS, DFS, and Dijkstra step-by-step traversal from configurable start and end nodes
 - Live stats for visited nodes, path length, and shortest-path cost
+
+### Dynamic programming visualizer
+- Table-based playback for Fibonacci tabulation, 0/1 Knapsack, and LCS
+- Built-in sample scenarios so each algorithm is ready to run immediately
+- Live stats for filled cells and the current final answer
 
 ### Info panel (all visualizers)
 - Live step annotation — updates every frame with a plain-language description
@@ -130,6 +135,14 @@ I wanted a portfolio project that demonstrated real engineering decisions, not j
 | Graph DFS | `O(V + E)` | `O(V + E)` | `O(V + E)` | `O(V)` |
 | Graph Dijkstra | `O(V log V)` | `O((V+E) log V)` | `O((V+E) log V)` | `O(V)` |
 
+### Dynamic Programming
+
+| Algorithm | Best | Average | Worst | Space |
+|---|---|---|---|---|
+| Fibonacci DP | `O(n)` | `O(n)` | `O(n)` | `O(n)` |
+| 0/1 Knapsack | `O(nW)` | `O(nW)` | `O(nW)` | `O(nW)` |
+| LCS | `O(mn)` | `O(mn)` | `O(mn)` | `O(mn)` |
+
 ### Code snippets
 
 Every algorithm in the info panel includes implementation snippets in **JavaScript, Python, and Java**.
@@ -178,7 +191,7 @@ src/
 │   │   ├── Sidebar.tsx          # collapsible category nav, animated active bar
 │   │   └── AlgorithmInfoPanel.tsx
 │   ├── ui/
-│   │   └── ControlBar.tsx       # shared across all five visualizers
+│   │   └── ControlBar.tsx       # shared across all six visualizers
 │   ├── sorting/
 │   │   ├── SortingVisualizer.tsx
 │   │   └── SortBars.tsx
@@ -191,6 +204,9 @@ src/
 │   ├── graph/
 │   │   ├── GraphVisualizer.tsx
 │   │   └── GraphCanvas.tsx
+│   ├── dynamic/
+│   │   ├── DynamicProgrammingVisualizer.tsx
+│   │   └── DPTable.tsx
 │   └── tree/
 │       ├── TreeVisualizer.tsx
 │       └── TreeCanvas.tsx
@@ -201,10 +217,11 @@ src/
 │       ├── sorting/index.ts     # 7 pure step-generator functions
 │       ├── pathfinding/index.ts # 4 algorithms + grid helpers
 │       ├── graph/index.ts       # graph generation + BFS/DFS/Dijkstra steps
+│       ├── dynamic/index.ts     # Fibonacci, Knapsack, and LCS table steps
 │       ├── searching/index.ts   # 2 pure step-generator functions
 │       └── tree/index.ts        # BST + traversal step generators + layout
 │
-├── types/index.ts               # SortBar, Cell, SearchBar, TreeNode, GraphNode, PlayState, Step types
+├── types/index.ts               # SortBar, Cell, SearchBar, TreeNode, GraphNode, DPTable, PlayState, Step types
 └── constants/algorithms.ts      # metadata + complexity + per-language code snippets
 ```
 

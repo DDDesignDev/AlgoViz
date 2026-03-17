@@ -3,9 +3,9 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
-  ArrowRight, BarChart3, Network, Search,
+  ArrowRight, BarChart3, Search,
   Code2, Layers, GitBranch, Cpu, Zap,
-  NetworkIcon, Share2,
+  NetworkIcon, Share2, Blocks,
   Map,
 } from "lucide-react";
 
@@ -55,6 +55,15 @@ const FEATURES = [
     accentHex: "#f97316",
     algorithms: ["Graph BFS", "Graph DFS", "Graph Dijkstra"],
   },
+  {
+    icon: Blocks,
+    label: "Dynamic Programming",
+    title: "DP Algorithms",
+    desc: "Watch memo tables fill for classic recurrence and optimization problems.",
+    accent: "pink",
+    accentHex: "#ec4899",
+    algorithms: ["Fibonacci DP", "0/1 Knapsack", "LCS"],
+  },
 ];
 
 const stagger = {
@@ -103,7 +112,7 @@ export default function LandingPage() {
             </div>
 
             <nav className="hidden md:flex items-center gap-6">
-              {["Sorting", "Pathfinding", "Searching", "Binary Tree", "Graphs"].map((item) => (
+              {["Sorting", "Pathfinding", "Searching", "Binary Tree", "Graphs", "Dynamic Programming"].map((item) => (
                 <Link
                   key={item}
                   href="/visualizer"
@@ -157,7 +166,7 @@ export default function LandingPage() {
                 <span
                   className="w-1.5 h-1.5 rounded-full bg-accent-cyan animate-pulse-slow"
                 />
-                20 algorithms · Step-through · Open source
+                23 algorithms · Step-through · Open source
               </span>
             </motion.div>
 
@@ -186,8 +195,8 @@ export default function LandingPage() {
               style={{ fontWeight: 300 }}
             >
               An interactive visualization tool for sorting, pathfinding, searching,
-              tree, and graph algorithms. Step through each operation, control speed,
-              and understand complexity in real time.
+              tree, graph, and dynamic-programming algorithms. Step through each
+              operation, control speed, and understand complexity in real time.
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex items-center gap-3 flex-wrap">
@@ -222,14 +231,15 @@ export default function LandingPage() {
           transition={{ delay: 0.45, duration: 0.5 }}
         >
           <div
-            className="grid grid-cols-2 md:grid-cols-5 rounded-2xl overflow-hidden"
+            className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 rounded-2xl overflow-hidden"
             style={{ border: "1px solid var(--surface-5)", background: "var(--surface-glass)" }}
           >
             {[
-              { value: "20",   label: "Algorithms",   accent: "#22D3EE" },
-              { value: "5",    label: "Categories",   accent: "#A78BFA" },
+              { value: "23",   label: "Algorithms",   accent: "#22D3EE" },
+              { value: "6",    label: "Categories",   accent: "#A78BFA" },
               { value: "∞",    label: "Step modes",   accent: "#34D399" },
               { value: "3",    label: "Graph algos",  accent: "#F97316" },
+              { value: "3",    label: "DP algos",     accent: "#EC4899" },
               { value: "MIT",  label: "Open source",  accent: "#FBBF24" },
             ].map((s) => (
               <div
@@ -258,7 +268,7 @@ export default function LandingPage() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="font-display text-3xl font-bold text-text-primary mb-3" style={{ letterSpacing: "-0.02em" }}>
-              Five categories, one tool
+              Six categories, one tool
             </h2>
             <p className="text-text-secondary text-base max-w-lg">
               Every algorithm ships with complexity tables, plain-language descriptions,
@@ -266,7 +276,7 @@ export default function LandingPage() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-5 gap-4">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6 gap-4">
             {FEATURES.map((feat, i) => (
               <motion.div
                 key={feat.title}

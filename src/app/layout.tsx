@@ -26,8 +26,8 @@ const themeScript = `
 export const metadata: Metadata = {
   title: "VizaRithm — Algorithm Visualizer",
   description:
-    "Interactive algorithm visualization tool for sorting, pathfinding, searching, tree, and graph algorithms. Built with Next.js and Framer Motion.",
-  keywords: ["algorithms", "visualizer", "sorting", "pathfinding", "searching", "graphs", "trees", "computer science"],
+    "Interactive algorithm visualization tool for sorting, pathfinding, searching, tree, graph, and dynamic-programming algorithms. Built with Next.js and Framer Motion.",
+  keywords: ["algorithms", "visualizer", "sorting", "pathfinding", "searching", "graphs", "trees", "dynamic programming", "computer science"],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
