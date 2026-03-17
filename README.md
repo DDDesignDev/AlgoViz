@@ -28,7 +28,7 @@
 
 VizaRithm is a portfolio-quality, browser-based tool for visualizing classic computer science algorithms. Each algorithm runs as a **step-by-step animation** — you can play it at any speed, pause mid-execution, advance one operation at a time, or reset and try again. A persistent info panel explains what the algorithm does, its time and space complexity, and the specific operation happening at the current step.
 
-The project now covers six categories — **sorting**, **pathfinding**, **searching**, **binary tree (BST)**, **graphs**, and **dynamic programming** — across 23 algorithms total. It is designed to be extended: adding a new algorithm still follows a predictable workflow in a few focused files.
+The project now covers six categories — **sorting**, **pathfinding**, **searching**, **binary tree (BST)**, **graphs**, and **dynamic programming** — across 24 algorithms total. It is designed to be extended: adding a new algorithm still follows a predictable workflow in a few focused files.
 
 ---
 
@@ -60,6 +60,7 @@ I wanted a portfolio project that demonstrated real engineering decisions, not j
 
 ### Searching visualizer
 - Sorted arrays for Binary Search, unsorted for Linear Search — auto-generated correctly
+- Dedicated hash-table lookup view with bucket-chain playback
 - Custom target value input, or auto-pick a random existing value
 - Mid / low / high pointer indicators for Binary Search
 
@@ -117,6 +118,7 @@ I wanted a portfolio project that demonstrated real engineering decisions, not j
 |---|---|---|---|---|
 | Linear Search | `O(1)` | `O(n)` | `O(1)` | ❌ |
 | Binary Search | `O(1)` | `O(log n)` | `O(1)` | ✅ |
+| Hash Table Lookup | `O(1)` | `O(1)` | `O(n)` | ❌ |
 
 ### Binary Tree (BST)
 
@@ -200,6 +202,8 @@ src/
 │   │   └── PathGrid.tsx
 │   ├── searching/
 │   │   ├── SearchingVisualizer.tsx
+│   │   ├── HashTableLookupVisualizer.tsx
+│   │   ├── HashTableView.tsx
 │   │   └── SearchBars.tsx
 │   ├── graph/
 │   │   ├── GraphVisualizer.tsx
@@ -218,7 +222,7 @@ src/
 │       ├── pathfinding/index.ts # 4 algorithms + grid helpers
 │       ├── graph/index.ts       # graph generation + BFS/DFS/Dijkstra steps
 │       ├── dynamic/index.ts     # Fibonacci, Knapsack, and LCS table steps
-│       ├── searching/index.ts   # 2 pure step-generator functions
+│       ├── searching/index.ts   # linear, binary, and hash-table lookup steps
 │       └── tree/index.ts        # BST + traversal step generators + layout
 │
 ├── types/index.ts               # SortBar, Cell, SearchBar, TreeNode, GraphNode, DPTable, PlayState, Step types

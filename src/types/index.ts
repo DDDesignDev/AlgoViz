@@ -99,6 +99,29 @@ export interface SearchStep {
   foundIndex: number | null;
 }
 
+export type HashEntryState = "default" | "active" | "found" | "eliminated";
+export type HashBucketState = "default" | "active" | "found";
+
+export interface HashEntry {
+  key: number;
+  value: string;
+  state: HashEntryState;
+}
+
+export interface HashBucket {
+  index: number;
+  state: HashBucketState;
+  entries: HashEntry[];
+}
+
+export interface HashLookupStep {
+  buckets: HashBucket[];
+  description: string;
+  found: boolean;
+  bucketIndex: number | null;
+  foundKey: number | null;
+}
+
 // ─── Binary Tree ──────────────────────────────────────────────────────────────
 
 export type TreeNodeState =

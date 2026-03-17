@@ -7,6 +7,7 @@ import Sidebar from "@/components/layout/Sidebar";
 import SortingVisualizer from "@/components/sorting/SortingVisualizer";
 import PathfindingVisualizer from "@/components/pathfinding/PathfindingVisualizer";
 import SearchingVisualizer from "@/components/searching/SearchingVisualizer";
+import HashTableLookupVisualizer from "@/components/searching/HashTableLookupVisualizer";
 import { AlgorithmCategory } from "@/types";
 import TreeVisualizer from "@/components/tree/TreeVisualizer";
 import GraphVisualizer from "@/components/graph/GraphVisualizer";
@@ -70,7 +71,11 @@ export default function VisualizerPage() {
           >
             {category === "sorting"     && <SortingVisualizer     algorithmId={selectedAlgorithm} />}
             {category === "pathfinding" && <PathfindingVisualizer algorithmId={selectedAlgorithm} />}
-            {category === "searching"   && <SearchingVisualizer   algorithmId={selectedAlgorithm} />}
+            {category === "searching"   && (
+              selectedAlgorithm === "hashTableLookup"
+                ? <HashTableLookupVisualizer algorithmId={selectedAlgorithm} />
+                : <SearchingVisualizer algorithmId={selectedAlgorithm} />
+            )}
             {category === "tree"        && <TreeVisualizer        algorithmId={selectedAlgorithm} />}
             {category === "graph"       && <GraphVisualizer       algorithmId={selectedAlgorithm} />}
             {category === "dynamic"     && <DynamicProgrammingVisualizer algorithmId={selectedAlgorithm} />}

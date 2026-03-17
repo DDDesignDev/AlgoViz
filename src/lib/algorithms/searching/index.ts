@@ -1,4 +1,4 @@
-import { SearchBar, SearchStep } from "@/types";
+import { HashBucket, SearchBar, SearchStep, HashLookupStep } from "@/types";
 
 function snapshot(bars: SearchBar[], description: string, found: boolean, foundIndex: number | null, extra?: Partial<SearchStep>): SearchStep {
   return {
@@ -8,6 +8,57 @@ function snapshot(bars: SearchBar[], description: string, found: boolean, foundI
     foundIndex,
     ...extra,
   };
+}
+
+function cloneBuckets(buckets: HashBucket[]): HashBucket[] {
+  return buckets.map((bucket) => ({
+    ...bucket,
+    entries: bucket.entries.map((entry) => ({ ...entry })),
+  }));
+}
+
+function bucketSnapshot(
+  buckets: HashBucket[],
+  description: string,
+  found: boolean,
+  bucketIndex: number | null,
+  foundKey: number | null,
+): HashLookupStep {
+  return {
+    buckets: cloneBuckets(buckets),
+    description,
+    found,
+    bucketIndex,
+    foundKey,
+  };
+}
+
+export function createHashTableBuckets(entryCount: number, bucketCount = 7): HashBucket[] {
+  const used = new Set<number>();
+  const buckets: HashBucket[] = Array.from({ length: bucketCount }, (_, index) => ({
+    index,
+    state: "default",
+    entries: [],
+  }));
+
+  while (used.size < entryCount) {
+    const key = Math.floor(Math.random() * 90) + 10;
+    if (used.has(key)) continue;
+    used.add(key);
+
+    const bucketIndex = key % bucketCount;
+    buckets[bucketIndex].entries.push({
+      key,
+      value: `V${key}`,
+      state: "default",
+    });
+  }
+
+  for (const bucket of buckets) {
+    bucket.entries.sort((a, b) => a.key - b.key);
+  }
+
+  return buckets;
 }
 
 // ── Linear Search ─────────────────────────────────────────────────────────────
@@ -76,5 +127,98 @@ export function generateBinarySearchSteps(initial: SearchBar[], target: number):
   }
 
   steps.push(snapshot(bars, `Target ${target} not found in the array`, false, null));
+  return steps;
+}
+
+// ── Hash Table Lookup ────────────────────────────────────────────────────────
+export function generateHashLookupSteps(initial: HashBucket[], target: number): HashLookupStep[] {
+  const buckets = cloneBuckets(initial);
+  const steps: HashLookupStep[] = [];
+  const bucketIndex = target % buckets.length;
+
+  steps.push(
+    bucketSnapshot(
+      buckets,
+      `Compute hash(${target}) = ${target} mod ${buckets.length} = bucket ${bucketIndex}.`,
+      false,
+      bucketIndex,
+      null,
+    ),
+  );
+
+  buckets[bucketIndex].state = "active";
+  steps.push(
+    bucketSnapshot(
+      buckets,
+      `Inspect bucket ${bucketIndex}. Hash-table lookup only checks this chain, not the whole table.`,
+      false,
+      bucketIndex,
+      null,
+    ),
+  );
+
+  if (!buckets[bucketIndex].entries.length) {
+    steps.push(
+      bucketSnapshot(
+        buckets,
+        `Bucket ${bucketIndex} is empty, so ${target} is definitely not in the table.`,
+        false,
+        bucketIndex,
+        null,
+      ),
+    );
+    return steps;
+  }
+
+  for (let i = 0; i < buckets[bucketIndex].entries.length; i++) {
+    const entry = buckets[bucketIndex].entries[i];
+    entry.state = "active";
+    steps.push(
+      bucketSnapshot(
+        buckets,
+        `Check chain entry ${i}: does key ${entry.key} match ${target}?`,
+        false,
+        bucketIndex,
+        null,
+      ),
+    );
+
+    if (entry.key === target) {
+      entry.state = "found";
+      buckets[bucketIndex].state = "found";
+      steps.push(
+        bucketSnapshot(
+          buckets,
+          `Found key ${target} in bucket ${bucketIndex}. Lookup succeeds in O(1) average time.`,
+          true,
+          bucketIndex,
+          target,
+        ),
+      );
+      return steps;
+    }
+
+    entry.state = "eliminated";
+    steps.push(
+      bucketSnapshot(
+        buckets,
+        `${entry.key} does not match ${target}, so continue scanning this collision chain.`,
+        false,
+        bucketIndex,
+        null,
+      ),
+    );
+  }
+
+  steps.push(
+    bucketSnapshot(
+      buckets,
+      `Reached the end of bucket ${bucketIndex} without finding ${target}.`,
+      false,
+      bucketIndex,
+      null,
+    ),
+  );
+
   return steps;
 }

@@ -32,10 +32,10 @@ const FEATURES = [
     icon: Search,
     label: "Searching",
     title: "Searching Algorithms",
-    desc: "Step through linear and binary search on sorted and unsorted arrays.",
+    desc: "Compare array-based search with hash-table lookup across three search strategies.",
     accent: "green",
     accentHex: "#34D399",
-    algorithms: ["Linear Search", "Binary Search"],
+    algorithms: ["Linear Search", "Binary Search", "Hash Table Lookup"],
   },
   {
     icon: NetworkIcon,
@@ -166,7 +166,7 @@ export default function LandingPage() {
                 <span
                   className="w-1.5 h-1.5 rounded-full bg-accent-cyan animate-pulse-slow"
                 />
-                23 algorithms · Step-through · Open source
+                24 algorithms · Step-through · Open source
               </span>
             </motion.div>
 
@@ -235,7 +235,7 @@ export default function LandingPage() {
             style={{ border: "1px solid var(--surface-5)", background: "var(--surface-glass)" }}
           >
             {[
-              { value: "23",   label: "Algorithms",   accent: "#22D3EE" },
+              { value: "24",   label: "Algorithms",   accent: "#22D3EE" },
               { value: "6",    label: "Categories",   accent: "#A78BFA" },
               { value: "∞",    label: "Step modes",   accent: "#34D399" },
               { value: "3",    label: "Graph algos",  accent: "#F97316" },

@@ -203,6 +203,21 @@ export const ALGORITHM_INFO: Record<string, AlgorithmInfo> = {
       "Finding insertion points",
     ],
   },
+  hashTableLookup: {
+    id: "hashTableLookup",
+    name: "Hash Table Lookup",
+    category: "searching",
+    timeComplexity: { best: "O(1)", average: "O(1)", worst: "O(n)" },
+    spaceComplexity: "O(n)",
+    description:
+      "Hash-table lookup hashes the key to a bucket and only inspects that bucket's collision chain. It is constant time on average, but poor hashing or heavy collisions can degrade it toward linear time.",
+    useCases: [
+      "Key-value caches",
+      "Symbol tables",
+      "Fast membership tests",
+      "High-throughput average-case lookups",
+    ],
+  },
 
   // ── Binary Tree ───────────────────────────────────────────────────────────
   bstInsert: {
@@ -937,6 +952,34 @@ def a_star(start, goal, neighbors, heuristic):
   return -1;
 }`,
   },
+  hashTableLookup: {
+    javascript: `function lookup(table, key) {
+  const bucketIndex = key % table.length;
+  const bucket = table[bucketIndex] ?? [];
+
+  for (const entry of bucket) {
+    if (entry.key === key) return entry.value;
+  }
+
+  return undefined;
+}`,
+    python: `def lookup(table, key):
+    bucket_index = key % len(table)
+    bucket = table[bucket_index]
+
+    for entry_key, entry_value in bucket:
+        if entry_key == key:
+            return entry_value
+
+    return None`,
+    java: `static String lookup(List<List<Entry>> table, int key) {
+  int bucketIndex = key % table.size();
+  for (Entry entry : table.get(bucketIndex)) {
+    if (entry.key == key) return entry.value;
+  }
+  return null;
+}`,
+  },
   bstInsert: {
     javascript: `function insert(root, value) {
   if (!root) return { value, left: null, right: null };
@@ -1404,7 +1447,7 @@ def dijkstra(graph, start):
 
 export const SORTING_ALGORITHMS = ["bubbleSort", "selectionSort", "insertionSort", "mergeSort", "quickSort", "heapSort", "bogoSort"];
 export const PATHFINDING_ALGORITHMS = ["bfs", "dfs", "dijkstra", "aStar"];
-export const SEARCHING_ALGORITHMS = ["linearSearch", "binarySearch"];
+export const SEARCHING_ALGORITHMS = ["linearSearch", "binarySearch", "hashTableLookup"];
 export const TREE_ALGORITHMS = ["bstInsert", "bstSearch", "bfsBST", "dfsBST"];
 export const GRAPH_ALGORITHMS = ["graphBFS", "graphDFS", "graphDijkstra"];
 export const DYNAMIC_ALGORITHMS = ["dpFibonacci", "dpKnapsack", "dpLCS"];
