@@ -28,7 +28,7 @@
 
 VizaRithm is a portfolio-quality, browser-based tool for visualizing classic computer science algorithms. Each algorithm runs as a **step-by-step animation** — you can play it at any speed, pause mid-execution, advance one operation at a time, or reset and try again. A persistent info panel explains what the algorithm does, its time and space complexity, and the specific operation happening at the current step.
 
-The project now covers four categories — **sorting**, **pathfinding**, **searching**, and **binary tree (BST)** — across 16 algorithms total. It is designed to be extended: adding a new algorithm still follows a predictable workflow in a few focused files.
+The project now covers four categories — **sorting**, **pathfinding**, **searching**, and **binary tree (BST)** — across 17 algorithms total. It is designed to be extended: adding a new algorithm still follows a predictable workflow in a few focused files.
 
 ---
 
@@ -90,6 +90,7 @@ I wanted a portfolio project that demonstrated real engineering decisions, not j
 | Merge Sort | `O(n log n)` | `O(n log n)` | `O(n log n)` | `O(n)` | ✅ |
 | Quick Sort | `O(n log n)` | `O(n log n)` | `O(n²)` | `O(log n)` | ❌ |
 | Heap Sort | `O(n log n)` | `O(n log n)` | `O(n log n)` | `O(1)` | ❌ |
+| Bogo Sort | `O(n)` | `O(n · n!)` | `Unbound (infinite)` | `O(1)` | ❌ |
 
 ### Pathfinding
 

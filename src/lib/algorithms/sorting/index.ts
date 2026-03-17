@@ -311,3 +311,75 @@ export function generateHeapSortSteps(initial: SortBar[]): SortStep[] {
   return steps;
 }
 
+// ── Bogo Sort ────────────────────────────────────────────────────────────────
+export function generateBogoSortSteps(
+  initial: SortBar[],
+  maxShuffles = 100
+): SortStep[] {
+  const bars = initial.map((b) => ({ ...b }));
+  const steps: SortStep[] = [];
+
+  function isSorted(arr: SortBar[]): boolean {
+    for (let i = 0; i < arr.length - 1; i++) {
+      if (arr[i].value > arr[i + 1].value) return false;
+    }
+    return true;
+  }
+
+  function shuffle(arr: SortBar[]) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+
+      arr[i].state = "swapping";
+      arr[j].state = "swapping";
+      steps.push(
+        snapshot(arr, `Randomly swapping indices ${i} (${arr[i].value}) and ${j} (${arr[j].value})`)
+      );
+
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+      steps.push(
+        snapshot(arr, `Shuffled: ${arr[i].value} is now at index ${i}, ${arr[j].value} is now at index ${j}`)
+      );
+
+      arr[i].state = "default";
+      arr[j].state = "default";
+    }
+  }
+
+  steps.push(snapshot(bars, "Starting Bogo Sort: randomly shuffle until the array is sorted"));
+
+  if (isSorted(bars)) {
+    bars.forEach((b) => (b.state = "sorted"));
+    steps.push(snapshot(bars, "Array was already sorted! 🎉"));
+    return steps;
+  }
+
+  let attempts = 0;
+
+  while (!isSorted(bars) && attempts < maxShuffles) {
+    bars.forEach((b) => {
+      if (b.state !== "sorted") b.state = "default";
+    });
+
+    steps.push(snapshot(bars, `Shuffle attempt ${attempts + 1}`));
+    shuffle(bars);
+    attempts++;
+
+    if (isSorted(bars)) {
+      bars.forEach((b) => (b.state = "sorted"));
+      steps.push(snapshot(bars, `Array became sorted after ${attempts} shuffle${attempts === 1 ? "" : "s"}! 🎉`));
+      return steps;
+    }
+  }
+
+  if (isSorted(bars)) {
+    bars.forEach((b) => (b.state = "sorted"));
+    steps.push(snapshot(bars, `Array became sorted after ${attempts} shuffle${attempts === 1 ? "" : "s"}! 🎉`));
+  } else {
+    bars.forEach((b) => (b.state = "default"));
+    steps.push(snapshot(bars, `Stopped after ${maxShuffles} shuffles to avoid an infinite run`));
+  }
+
+  return steps;
+}
+

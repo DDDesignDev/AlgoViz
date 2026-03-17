@@ -13,10 +13,10 @@ const FEATURES = [
     icon: BarChart3,
     label: "Sorting",
     title: "Sorting Algorithms",
-    desc: "Animate comparisons, swaps, and pivots across five classic algorithms.",
+    desc: "Animate comparisons, swaps, pivots, and shuffles across seven sorting algorithms.",
     accent: "cyan",
     accentHex: "#22D3EE",
-    algorithms: ["Bubble Sort", "Selection Sort", "Insertion Sort", "Merge Sort", "Quick Sort", "Heap Sort"],
+    algorithms: ["Bubble Sort", "Selection Sort", "Insertion Sort", "Merge Sort", "Quick Sort", "Heap Sort", "Bogo Sort"],
   },
   {
     icon: Network,
@@ -40,7 +40,7 @@ const FEATURES = [
     icon: NetworkIcon,
     label: "Binary Tree",
     title: "BST Algorithms",
-    desc: "Visualize how nodes are inserted, searched, deleted and traversed in a binary tree structure",
+    desc: "Visualize how nodes are inserted, searched, and traversed in a binary tree structure",
     accent: "orange",
     accentHex: "#fb923c",
     algorithms: ["BST Insert", "BST Search", "BFS Traversal", "DFS Traversal"],
@@ -147,7 +147,7 @@ export default function LandingPage() {
                 <span
                   className="w-1.5 h-1.5 rounded-full bg-accent-cyan animate-pulse-slow"
                 />
-                16 algorithms · Step-through · Open source
+                17 algorithms · Step-through · Open source
               </span>
             </motion.div>
 
@@ -216,7 +216,7 @@ export default function LandingPage() {
             style={{ border: "1px solid var(--surface-5)", background: "var(--surface-glass)" }}
           >
             {[
-              { value: "16",   label: "Algorithms",   accent: "#22D3EE" },
+              { value: "17",   label: "Algorithms",   accent: "#22D3EE" },
               { value: "4",    label: "Categories",   accent: "#A78BFA" },
               { value: "∞",    label: "Step modes",   accent: "#34D399" },
               { value: "MIT",  label: "Open source",  accent: "#FBBF24" },

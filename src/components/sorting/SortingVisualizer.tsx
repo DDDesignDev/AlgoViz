@@ -12,6 +12,7 @@ import {
   generateMergeSortSteps,
   generateQuickSortSteps,
   generateHeapSortSteps,
+  generateBogoSortSteps,
 } from "@/lib/algorithms/sorting";
 import { generateRandomBars, speedToDelay } from "@/lib/utils";
 import ControlBar from "@/components/ui/ControlBar";
@@ -19,6 +20,17 @@ import AlgorithmInfoPanel from "@/components/layout/AlgorithmInfoPanel";
 import SortBars from "./SortBars";
 
 const DEFAULT_SIZE = 42;
+const DEFAULT_MIN_SIZE = 10;
+const DEFAULT_MAX_SIZE = 80;
+const BOGO_DEFAULT_SIZE = 4;
+const BOGO_MIN_SIZE = 3;
+const BOGO_MAX_SIZE = 4;
+
+function getSizeConfig(algorithmId: string) {
+  return algorithmId === "bogoSort"
+    ? { defaultSize: BOGO_DEFAULT_SIZE, min: BOGO_MIN_SIZE, max: BOGO_MAX_SIZE }
+    : { defaultSize: DEFAULT_SIZE, min: DEFAULT_MIN_SIZE, max: DEFAULT_MAX_SIZE };
+}
 
 function generateSteps(algorithmId: string, bars: SortBar[]): SortStep[] {
   switch (algorithmId) {
@@ -28,15 +40,17 @@ function generateSteps(algorithmId: string, bars: SortBar[]): SortStep[] {
     case "mergeSort":     return generateMergeSortSteps(bars);
     case "quickSort":     return generateQuickSortSteps(bars);
     case "heapSort":      return generateHeapSortSteps(bars);
+    case "bogoSort":      return generateBogoSortSteps(bars);
     default:              return generateBubbleSortSteps(bars);
   }
 }
 
 export default function SortingVisualizer({ algorithmId }: { algorithmId: string }) {
   const info = ALGORITHM_INFO[algorithmId];
+  const sizeConfig = getSizeConfig(algorithmId);
 
-  const [arraySize, setArraySize]   = useState(DEFAULT_SIZE);
-  const [bars, setBars]             = useState<SortBar[]>(() => generateRandomBars(DEFAULT_SIZE));
+  const [arraySize, setArraySize]   = useState(() => sizeConfig.defaultSize);
+  const [bars, setBars]             = useState<SortBar[]>(() => generateRandomBars(sizeConfig.defaultSize));
   const [steps, setSteps]           = useState<SortStep[]>([]);
   const [stepIndex, setStepIndex]   = useState(-1);
   const [playState, setPlayState]   = useState<PlayState>("idle");
@@ -46,7 +60,16 @@ export default function SortingVisualizer({ algorithmId }: { algorithmId: string
   const stepsRef       = useRef<SortStep[]>([]);
   const stepIndexRef   = useRef(-1);
 
-  useEffect(() => { handleReset(); }, [algorithmId]); // eslint-disable-line
+  useEffect(() => {
+    clearInterval(intervalRef.current!);
+    const nextBars = generateRandomBars(sizeConfig.defaultSize);
+    setArraySize(sizeConfig.defaultSize);
+    setBars(nextBars);
+    setSteps([]);
+    setStepIndex(-1);
+    stepIndexRef.current = -1;
+    setPlayState("idle");
+  }, [algorithmId, sizeConfig.defaultSize]);
 
   function handleGenerate() {
     clearInterval(intervalRef.current!);
@@ -165,7 +188,7 @@ export default function SortingVisualizer({ algorithmId }: { algorithmId: string
             <div className="flex items-center gap-2">
               <span className="text-[11px] font-mono text-text-muted">Bars</span>
               <input
-                type="range" min={10} max={80} value={arraySize}
+                type="range" min={sizeConfig.min} max={sizeConfig.max} value={arraySize}
                 disabled={playState === "playing"}
                 onChange={(e) => {
                   const sz = Number(e.target.value);

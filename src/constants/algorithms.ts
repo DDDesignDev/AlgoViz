@@ -94,6 +94,21 @@ export const ALGORITHM_INFO: Record<string, AlgorithmInfo> = {
       "Priority queue implementations",
     ],
   },
+  bogoSort: {
+    id: "bogoSort",
+    name: "Bogo Sort",
+    category: "sorting",
+    timeComplexity: { best: "O(n)", average: "O(n · n!)", worst: "Unbound (infinite)" },
+    spaceComplexity: "O(1)",
+    stable: false,
+    description:
+      "Bogo Sort repeatedly shuffles the array at random until it happens to be sorted. It does not follow any logical strategy and relies entirely on chance.",
+    useCases: [
+      "Educational use to show why algorithm design matters",
+      "Compare complexity to algorithms like Quick Sort and Merge Sort",
+      "Demonstrates brute force and probability concepts",
+    ],
+  },
 
   // ── Pathfinding ───────────────────────────────────────────────────────────
   bfs: {
@@ -526,6 +541,59 @@ static void heapify(int[] a, int n, int i) {
   }
 }`,
   },
+  bogoSort: {
+    javascript: `function bogoSort(arr) {
+  const a = [...arr];
+
+  function isSorted(values) {
+    for (let i = 0; i < values.length - 1; i++) {
+      if (values[i] > values[i + 1]) return false;
+    }
+    return true;
+  }
+
+  function shuffle(values) {
+    for (let i = values.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [values[i], values[j]] = [values[j], values[i]];
+    }
+  }
+
+  while (!isSorted(a)) shuffle(a);
+  return a;
+}`,
+    python: `import random
+
+def bogo_sort(arr):
+    a = arr[:]
+
+    def is_sorted(values):
+        return all(values[i] <= values[i + 1] for i in range(len(values) - 1))
+
+    while not is_sorted(a):
+        random.shuffle(a)
+    return a`,
+    java: `static void bogoSort(int[] a) {
+  while (!isSorted(a)) {
+    shuffle(a);
+  }
+}
+
+static boolean isSorted(int[] a) {
+  for (int i = 0; i < a.length - 1; i++) {
+    if (a[i] > a[i + 1]) return false;
+  }
+  return true;
+}
+
+static void shuffle(int[] a) {
+  Random rand = new Random();
+  for (int i = a.length - 1; i > 0; i--) {
+    int j = rand.nextInt(i + 1);
+    int t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+}`,
+  },
   bfs: {
     javascript: `function bfs(graph, start) {
   const visited = new Set([start]);
@@ -918,7 +986,7 @@ def bfs_traversal(root):
   },
 };
 
-export const SORTING_ALGORITHMS = ["bubbleSort", "selectionSort", "insertionSort", "mergeSort", "quickSort", "heapSort"];
+export const SORTING_ALGORITHMS = ["bubbleSort", "selectionSort", "insertionSort", "mergeSort", "quickSort", "heapSort", "bogoSort"];
 export const PATHFINDING_ALGORITHMS = ["bfs", "dfs", "dijkstra", "aStar"];
 export const SEARCHING_ALGORITHMS = ["linearSearch", "binarySearch"];
 export const TREE_ALGORITHMS = ["bstInsert", "bstSearch", "bfsBST", "dfsBST"];
