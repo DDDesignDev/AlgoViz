@@ -961,14 +961,40 @@ def bfs_traversal(root):
 }`,
   },
   dfsBST: {
-    javascript: `function inorder(root, out = []) {
+    javascript: `function preorder(root, out = []) {
+  if (!root) return out;
+  out.push(root.value);
+  preorder(root.left, out);
+  preorder(root.right, out);
+  return out;
+}
+
+function inorder(root, out = []) {
   if (!root) return out;
   inorder(root.left, out);
   out.push(root.value);
   inorder(root.right, out);
   return out;
+}
+
+function postorder(root, out = []) {
+  if (!root) return out;
+  postorder(root.left, out);
+  postorder(root.right, out);
+  out.push(root.value);
+  return out;
 }`,
-    python: `def inorder(root, out=None):
+    python: `def preorder(root, out=None):
+    if out is None:
+        out = []
+    if root is None:
+        return out
+    out.append(root["value"])
+    preorder(root["left"], out)
+    preorder(root["right"], out)
+    return out
+
+def inorder(root, out=None):
     if out is None:
         out = []
     if root is None:
@@ -976,12 +1002,36 @@ def bfs_traversal(root):
     inorder(root["left"], out)
     out.append(root["value"])
     inorder(root["right"], out)
+    return out
+
+def postorder(root, out=None):
+    if out is None:
+        out = []
+    if root is None:
+        return out
+    postorder(root["left"], out)
+    postorder(root["right"], out)
+    out.append(root["value"])
     return out`,
-    java: `static void inorder(Node root, List<Integer> out) {
+    java: `static void preorder(Node root, List<Integer> out) {
+  if (root == null) return;
+  out.add(root.value);
+  preorder(root.left, out);
+  preorder(root.right, out);
+}
+
+static void inorder(Node root, List<Integer> out) {
   if (root == null) return;
   inorder(root.left, out);
   out.add(root.value);
   inorder(root.right, out);
+}
+
+static void postorder(Node root, List<Integer> out) {
+  if (root == null) return;
+  postorder(root.left, out);
+  postorder(root.right, out);
+  out.add(root.value);
 }`,
   },
 };
